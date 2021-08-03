@@ -1,21 +1,52 @@
+from collections import Counter
+from statistics import mode
+
+
 class TrackOrders:
+    def __init__(self):
+        self.orders = []
+
     def __len__(self):
-        pass
+        return len(self.orders)
 
     def add_new_order(self, costumer, order, day):
-        pass
+        self.orders.append({
+            'costumer': costumer, 'order': order, 'day': day
+        })
 
     def get_most_ordered_dish_per_costumer(self, costumer):
-        pass
+        return mode(
+            order['order'] for order in self.orders
+            if order['costumer'] == costumer
+        )
 
     def get_never_ordered_per_costumer(self, costumer):
-        pass
+        dishes = set([order['order'] for order in self.orders])
+        customer_dishes = set([
+            order['order']
+            for order in self.orders
+            if order['costumer'] == costumer
+        ])
+
+        return dishes.difference(customer_dishes)
 
     def get_days_never_visited_per_costumer(self, costumer):
-        pass
+        days = set([order['day'] for order in self.orders])
+        customer_visited_days = set([
+            order['day']
+            for order in self.orders
+            if order['costumer'] == costumer
+        ])
+        return days.difference(customer_visited_days)
 
     def get_busiest_day(self):
-        pass
+        return mode(
+            order['day'] for order in self.orders
+        )
 
     def get_least_busy_day(self):
-        pass
+        count_costumer_order = Counter(
+            order['day'] for order in self.orders
+        )
+
+        return min(count_costumer_order, key=count_costumer_order.get)
