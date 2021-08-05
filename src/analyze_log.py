@@ -79,6 +79,3 @@ def analyze_log(path_to_file):
     )
 
     writer_file("data/mkt_campaign.txt", report)
-
-
-print(analyze_log("data/orders_1.csv"))
