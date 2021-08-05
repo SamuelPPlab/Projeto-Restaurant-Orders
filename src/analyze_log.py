@@ -35,7 +35,7 @@ class BurguerShop:
     
     def less_wanted_dish(self, menu):
         ordered_dishes = {order[1] for order in self.orders}
-        self.work_days = {order[2] for order in self.orders}
+        return menu - ordered_dishes
     
     def poorest_days(self, work_days):
         visited_days = {order[1] for order in self.orders}
@@ -53,14 +53,17 @@ class shop:
     def get_work_days(self):
         return self._work_days
 
+
 def write_csv_file(path_to_file, analyzed_logs):
     with open(path_to_file, "w") as file:
         for order in analyzed_logs:
             file.write("{0}\n".format(order))
 
+
 def extract_file(path_to_file):
     with open(path_to_file) as file:
         return list(csv.reader(file))
+
 
 def analyze_log(path_to_file):
     analyzed_log = []
@@ -74,15 +77,15 @@ def analyze_log(path_to_file):
 
     marias_buyest_dish = maria_orders.buyest_dish()
     arnaldos_buyest_dish = arnaldo_orders.buyest_dish("hamburguer")
-    joao_nevers_ordered = joao_orders.less_wanted_dish(restaurant.get_menu())
-    joao_nevers_went = joao_orders.poorest_days(
+    joao_never_ordered = joao_orders.less_wanted_dish(restaurant.get_menu())
+    joao_never_went = joao_orders.poorest_days(
         restaurant.get_work_days()
     )
 
     analyzed_log.append(marias_buyest_dish)
     analyzed_log.append(arnaldos_buyest_dish)
-    analyzed_log.append(joao_nevers_ordered)
-    analyzed_log.append(joao_nevers_went)
+    analyzed_log.append(joao_never_ordered)
+    analyzed_log.append(joao_never_went)
 
     file_to_write = "data/mkt_campaign.txt"
     write_csv_file(file_to_write, analyzed_log)
