@@ -40,5 +40,3 @@ def analyze_log(path_to_file):
     # print("O que João nunca pediu", todos.difference(joao))
     # print("Todos os dias: ", todos_os_dias)
     # print("Dias que João não foi: ", todos_os_dias.difference(joao_foi))
-
-
