@@ -19,7 +19,13 @@ class TrackOrders:
         return max(dish_count, key=dish_count.get)
 
     def get_never_ordered_per_costumer(self, costumer):
-        pass
+        client_order = set()
+        all_orders = set()
+        for order in self.orders:
+            all_orders.add(order[1])
+            if order[0] == costumer:
+                client_order.add(order[1])
+        return all_orders - client_order
 
     def get_days_never_visited_per_costumer(self, costumer):
         pass
