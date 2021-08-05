@@ -8,45 +8,77 @@ def open_file(file_open):
     return file
 
 
+def writer_file(file_write, content):
+    with open(file_write, "w") as file:
+        file.write(content)
+
+
+def configuring_report(name, info_by_person):
+    if name not in info_by_person:
+        info_by_person[name] = {}
+        info_by_person[name]["days"] = set()
+        info_by_person[name]["orders"] = set()
+        info_by_person[name]["all_orders"] = []
+        info_by_person[name]["most_ordered_quantity"] = {}
+        info_by_person[name]["most_requested_item"] = ""
+
+
+def most_requested(name, list):
+    return list[name]["most_requested_item"]
+
+
+def qty_order(name, order, list):
+    return list[name]["most_ordered_quantity"][order]
+
+
+def orders_never_made(name, all_dishes, list):
+    return all_dishes.difference(list[name]["orders"])
+
+
+def not_days(name, days, list):
+    return days.difference(list[name]["days"])
+
+
 def analyze_log(path_to_file):
     report = ""
-    more_request_maria = ""
-    orders_maria = []
-    orders_arnaldo = []
-    orders_joao = set()
-    order_count = 0
-    qty_hambuguer_arnaldo = 0
     all_dishes = set()
-    joao_days = set()
     days = set()
     orders = open_file(path_to_file)
-    report_all = {}
+    info_by_person = {}
     for name, order, day in orders:
-        count = orders_maria.count(order)
         all_dishes.add(order)
         days.add(day)
-        if name == "joao":
-            orders_joao.add(order)
-            joao_days.add(day)
-        if name == "arnaldo":
-            orders_arnaldo.append(order)
-        if name == "maria":
-            orders_maria.append(order)
-        if count > order_count:
-            order_count = count
-            more_request_maria = order
+        configuring_report(name, info_by_person)
 
-    days_joao_never_was = days.difference(joao_days)
-    dishes_never_ordered_joao = all_dishes.difference(orders_joao)
-    qty_hambuguer_arnaldo = orders_arnaldo.count("hamburguer")
+        if order not in info_by_person[name]["most_ordered_quantity"]:
+            info_by_person[name]["most_ordered_quantity"][order] = 0
+
+        info_by_person[name]["days"].add(day)
+        info_by_person[name]["orders"].add(order)
+        info_by_person[name]["all_orders"].append(order)
+        info_by_person[name]["most_ordered_quantity"][order] += 1
+        count = 0
+        for item, qtd in info_by_person[name]["most_ordered_quantity"].items():
+
+            if qtd > count:
+                count = qtd
+                info_by_person[name]["most_requested_item"] = item
+
+    most_requested_maria = most_requested("maria", info_by_person)
+    qtd_hambuguer_arnaldo = qty_order("arnaldo", "hamburguer", info_by_person)
+    orders_never_made_joao = orders_never_made(
+        "joao", all_dishes, info_by_person
+    )
+    not_days_joao = not_days("joao", days, info_by_person)
+
     report = (
-        f"{more_request_maria}\n"
-        f"{qty_hambuguer_arnaldo}\n"
-        f"{dishes_never_ordered_joao}\n"
-        f"{days_joao_never_was}"
+        f"{most_requested_maria}\n"
+        f"{qtd_hambuguer_arnaldo}\n"
+        f"{orders_never_made_joao}\n"
+        f"{not_days_joao}\n"
     )
 
-    return report
+    writer_file("data/mkt_campaign.txt", report)
 
 
 print(analyze_log("data/orders_1.csv"))
