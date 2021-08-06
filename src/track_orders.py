@@ -11,10 +11,8 @@ class TrackOrders:
     def __init__(self):
         self.orders = []
 
-
     def __len__(self):
         return len(self.orders)
-
 
     def add_new_order(self, costumer, order, day):
         self.orders.append({
@@ -22,7 +20,6 @@ class TrackOrders:
             'order': order,
             'week_day': day
         })
-
 
     def get_most_ordered_dish_per_costumer(self, costumer):
         client = Clients_data(costumer, self.orders)
@@ -35,19 +32,17 @@ class TrackOrders:
                 aux_count[client_order] = 1
             else:
                 aux_count[client_order] += 1
-  
+
             if aux_count[client_order] > aux_count[most_ordered]:
                 most_ordered = client_order
 
         return most_ordered
-
 
     def get_never_ordered_per_costumer(self, costumer):
         client = Clients_data(costumer, self.orders)
         all_orders = [row['order'] for row in self.orders]
         never_ordered = set(all_orders) - set(client.orders)
         return never_ordered
-
 
     def get_days_never_visited_per_costumer(self, costumer):
         client = Clients_data(costumer, self.orders)
@@ -56,10 +51,8 @@ class TrackOrders:
         days_never_visited = set(all_week_days) - set(client.week_days)
         return days_never_visited
 
-
     def get_busiest_day(self):
         pass
-
 
     def get_least_busy_day(self):
         pass
