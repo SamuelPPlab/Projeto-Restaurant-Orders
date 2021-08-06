@@ -64,10 +64,10 @@ class TrackOrders:
                 aux_count[day] = 1
             else:
                 aux_count[day] += 1
-            
+
             if aux_count[day] > aux_count[busiest_day]:
                 busiest_day = day
-        
+
         return busiest_day
 
     def get_least_busy_day(self):
@@ -83,8 +83,8 @@ class TrackOrders:
                 aux_count[day] = 1
             else:
                 aux_count[day] += 1
-            
+
             if aux_count[day] < aux_count[least_busy_day]:
                 least_busy_day = day
-        
+
         return least_busy_day
