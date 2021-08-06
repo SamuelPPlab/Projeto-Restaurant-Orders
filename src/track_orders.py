@@ -21,13 +21,18 @@ class TrackOrders:
     def get_most_ordered_dish_per_costumer(self, customer):
         customer_list = []
         for row in self.pedidos:
-            # print(row)
             if row['name'] == customer:
                 customer_list.append(row['order'])
         return collections.Counter(customer_list).most_common(1)[0][0]
 
     def get_never_ordered_per_costumer(self, customer):
-        pass
+        customer_list = set()
+        food_list = set()
+        for row in self.pedidos:
+            food_list.add(row['order'])
+            if row['name'] == customer:
+                customer_list.add(row['order'])
+        return food_list.difference(customer_list)
 
     def get_days_never_visited_per_costumer(self, customer):
         pass
@@ -50,8 +55,8 @@ csv_parsed = [
     ["maria", "hamburguer", "terça-feira"],
     ["joao", "hamburguer", "terça-feira"],
 ]
-# track_orders = TrackOrders()
-# for name, food, day in csv_parsed:
-#    track_orders.add_new_order(name, food, day)
-# most_ordered = track_orders.get_most_ordered_dish_per_costumer("maria")
-# print(most_ordered)
+track_orders = TrackOrders()
+for name, food, day in csv_parsed:
+    track_orders.add_new_order(name, food, day)
+never_ordered = track_orders.get_never_ordered_per_costumer("joao")
+print(never_ordered)
