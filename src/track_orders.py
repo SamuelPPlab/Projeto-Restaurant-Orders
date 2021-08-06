@@ -44,7 +44,10 @@ class TrackOrders:
         return days_list.difference(customer_list)
 
     def get_busiest_day(self):
-        pass
+        order_list = []
+        for row in self.pedidos:
+            order_list.append(row['day'])
+        return collections.Counter(order_list).most_common(1)[0][0]
 
     def get_least_busy_day(self):
         pass
@@ -64,5 +67,5 @@ csv_parsed = [
 track_orders = TrackOrders()
 for name, food, day in csv_parsed:
     track_orders.add_new_order(name, food, day)
-never_visited = track_orders.get_days_never_visited_per_costumer("joao")
-print(never_visited)
+busiest = track_orders.get_busiest_day()
+print(busiest)
