@@ -50,7 +50,10 @@ class TrackOrders:
         return collections.Counter(order_list).most_common(1)[0][0]
 
     def get_least_busy_day(self):
-        pass
+        order_list = []
+        for row in self.pedidos:
+            order_list.append(row['day'])
+        return collections.Counter(order_list).most_common()[-1][0]
 
 
 csv_parsed = [
@@ -67,5 +70,5 @@ csv_parsed = [
 track_orders = TrackOrders()
 for name, food, day in csv_parsed:
     track_orders.add_new_order(name, food, day)
-busiest = track_orders.get_busiest_day()
-print(busiest)
+less_busy = track_orders.get_least_busy_day()
+print(less_busy)
