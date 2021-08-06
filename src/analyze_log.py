@@ -5,7 +5,9 @@ class Clients_data:
     def __init__(self, client, data):
         self.client = client
         self.orders = [row['order'] for row in data if client in row['client']]
-        self.week_days = [row['week_day'] for row in data if client in row['client']]
+        self.week_days = [
+            row['week_day'] for row in data if client in row['client']
+        ]
 
 
 def read_file(path_to_file):
@@ -13,7 +15,7 @@ def read_file(path_to_file):
     with open(path_to_file) as csv_file:
         keys = ['client', 'order', 'week_day']
         file_already_read = csv.DictReader(csv_file, fieldnames=keys)
-        
+
         data = [row for row in file_already_read]
         return data
 
@@ -32,7 +34,7 @@ def get_favorite(client, list):
 
         if aux_count[marias_order] > aux_count[marias_favorite]:
             marias_favorite = marias_order
-    
+
     return marias_favorite
 
 
