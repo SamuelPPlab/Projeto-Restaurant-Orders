@@ -1,1 +1,0 @@
-all_dishes - client_dishes
