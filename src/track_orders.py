@@ -21,6 +21,7 @@ class TrackOrders:
 
     def get_days_never_visited_per_costumer(self, costumer):
         return get_missing_days(self.orders, costumer)
+
     def get_busiest_day(self):
         pass
 
