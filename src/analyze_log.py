@@ -2,20 +2,16 @@ def analyze_log(path_to_file):
     pedidos = _ler_pedidos_do_arquivo(path_to_file)
 
     # Qual o prato mais pedido por 'maria'?
-    prato_maria = _prato_mais_pedido(pedidos, 'maria')
+    prato_maria = most_ordered_dish_per_customer(pedidos, 'maria')
 
     # Quantas vezes 'arnaldo' pediu 'hamburguer'?
     hamburguers_arnaldo = _contagem_prato(pedidos, 'arnaldo', 'hamburguer')
 
     # Quais pratos 'joao' nunca pediu?
-    joao_nunca_pediu = (
-        _todos_os_pratos(pedidos) - _pratos_pedidos(pedidos, 'joao')
-    )
+    joao_nunca_pediu = never_ordered_per_customer(pedidos, 'joao')
 
     # Quais dias 'joao' nunca foi na lanchonete?
-    joao_nao_veio_nos_dias = (
-        _dias_que_a_lanchonete_abre(pedidos) - _dias_pedidos(pedidos, 'joao')
-    )
+    joao_nao_veio_nos_dias = days_never_visited_per_customer(pedidos, 'joao')
 
     _escrever_no_arquivo('data/mkt_campaign.txt',
                          [prato_maria,
@@ -44,7 +40,7 @@ def _contagem_pratos(pedidos, pessoa):
     return contagem_pratos
 
 
-def _prato_mais_pedido(pedidos, pessoa):
+def most_ordered_dish_per_customer(pedidos, pessoa):
     contagem_pratos = _contagem_pratos(pedidos, pessoa)
     return max(contagem_pratos, key=contagem_pratos.get)
 
@@ -73,3 +69,12 @@ def _dias_pedidos(pedidos, pessoa):
 def _escrever_no_arquivo(path, lines):
     with open(path, 'w') as fd:
         fd.writelines(f"{line}\n" for line in lines)
+
+
+def never_ordered_per_customer(orders, customer):
+    return _todos_os_pratos(orders) - _pratos_pedidos(orders, customer)
+
+
+def days_never_visited_per_customer(orders, customer):
+    return (_dias_que_a_lanchonete_abre(orders) -
+            _dias_pedidos(orders, customer))
