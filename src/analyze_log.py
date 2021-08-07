@@ -1,6 +1,5 @@
 def analyze_log(path_to_file):
     pedidos = _ler_pedidos_do_arquivo(path_to_file)
-    print(pedidos[:3])
 
     # Qual o prato mais pedido por 'maria'?
     prato_maria = _prato_mais_pedido(pedidos, 'maria')
