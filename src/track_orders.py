@@ -23,7 +23,13 @@ class TrackOrders:
         return get_missing_days(self.orders, costumer)
 
     def get_busiest_day(self):
-        pass
+        days = dict()
+        for order in self.orders:
+            days[order[2]] = days.get(order[2], 0) + 1
+        return max(days, key=days.get)
 
     def get_least_busy_day(self):
-        pass
+        days = dict()
+        for order in self.orders:
+            days[order[2]] = days.get(order[2], 0) + 1
+        return min(days, key=days.get)
