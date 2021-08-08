@@ -19,3 +19,6 @@ class TrackOrders:
 
     def get_least_busy_day(self):
         pass
+
+    def get_order_frequency_per_costumer(self, name, order):
+        pass
