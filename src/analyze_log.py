@@ -50,7 +50,9 @@ def dias_sem_pedir(nome, pedidos):
 def analyze_log(path_to_file):
     if not path_to_file.endswith(".csv"):
         raise FileNotFoundError(f"No such file or directory: '{path_to_file}'")
+
     orders = leitor_arquivo(path_to_file)
+
     with open("data/mkt_campaign.txt", "w") as analyze_file:
         analyze_file.write(f"{mais_pedido("maria", orders)}\n")
         analyze_file.write(
@@ -60,4 +62,3 @@ def analyze_log(path_to_file):
             f"{nunca_pedidos("joao", orders)}\n"
         )
         analyze_file.write(f"{dias_sem_pedir("joao", orders)}\n")
-    
