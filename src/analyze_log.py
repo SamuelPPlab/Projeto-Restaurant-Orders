@@ -1,11 +1,20 @@
 import csv
 
 
+def maria_favorite_helper(maria):
+    maria_favorite = ""
+    for key in maria.keys():
+        if maria_favorite == "":
+            maria_favorite = key
+        if maria[key] > maria[maria_favorite]:
+            maria_favorite = key
+    return str(maria_favorite)
+
+
 def maria_favorite(path_to_file):
     with open(path_to_file) as file:
         file = csv.reader(file, delimiter=",", quotechar='"')
         maria = {}
-        maria_favorite = ""
         for line in file:
             if line[0] == "maria":
                 if line[1] in maria.keys():
@@ -13,12 +22,7 @@ def maria_favorite(path_to_file):
                 else:
                     maria[line[1]] = 1
 
-        for key in maria.keys():
-            if maria_favorite == "":
-                maria_favorite = key
-            if maria[key] > maria[maria_favorite]:
-                maria_favorite = key
-        return str(maria_favorite)
+        return maria_favorite_helper(maria)
 
 
 def joao_ask(path_to_file):
@@ -66,7 +70,6 @@ def analyze_log(path_to_file):
     Vjoao_ask = joao_ask(path_to_file) + "\n"
     Vjoao_arrive = joao_arrive(path_to_file)
 
-    print(Vmaria_favorite + Vjoao_ask + Vjoao_arrive + Varnaldo)
     f = open("data/mkt_campaign.txt", "w")
     f.write(Vmaria_favorite + Varnaldo + Vjoao_ask + Vjoao_arrive)
     f.close()
