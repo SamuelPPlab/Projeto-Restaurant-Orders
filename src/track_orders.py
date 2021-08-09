@@ -33,7 +33,17 @@ class TrackOrders:
         )
 
     def get_days_never_visited_per_costumer(self, costumer):
-        pass
+        return set(
+            [
+                "segunda-feira",
+                "terça-feira",
+                "quarta-feira",
+                "quinta-feira",
+                "sexta-feira",
+                "sabado",
+                "domingo",
+            ]
+        ).difference(self.orders[costumer]["days"].keys())
 
     def get_busiest_day(self):
         pass
