@@ -22,7 +22,15 @@ class TrackOrders:
         return max(data_client, key=data_client.get)
 
     def get_never_ordered_per_costumer(self, costumer):
-        pass
+        client_orders = set()
+        carte = set()
+        for item in self.orders:
+            name = item[0]
+            food = item[1]
+            carte.add(food)
+            if name == costumer:
+                client_orders.add(food)
+        return carte - client_orders
 
     def get_days_never_visited_per_costumer(self, costumer):
         pass
