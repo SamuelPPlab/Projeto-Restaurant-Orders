@@ -44,7 +44,8 @@ class InventoryControl:
         
         if index == len(ingredients):
             for ingredient in self.ingredients[order]:
-                self.get_quantities_to_buy[ingredient] = self.get_quantities_to_buy[ingredient] + 1
+                self.get_quantities_to_buy[ingredient] =
+                self.get_quantities_to_buy[ingredient] + 1
         else:
             return False
 
