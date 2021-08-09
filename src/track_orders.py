@@ -36,7 +36,7 @@ class TrackOrders:
             all_days.add(pedido["day"])
             if pedido["name"] == costumer:
                 costumer_day.add(pedido["day"])
-            return all_days.difference(costumer_day)
+        return all_days.difference(costumer_day)
 
     def get_busiest_day(self):
         all_days = []
