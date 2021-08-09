@@ -22,7 +22,7 @@ class InventoryControl:
             'frango': 50,
         }
 
-        self.toBuy = {
+        self.get_quantities_to_buy = {
             "pao": 0,
             "carne": 0,
             "queijo": 0,
@@ -37,19 +37,19 @@ class InventoryControl:
         ingredients = self.ingredients(order)
         while (
             index < len(ingredients)
-            and self.toBuy[ingredients[index]]
+            and self.get_quantities_to_buy[ingredients[index]]
             < self.minimum_inventory[ingredients[index]]
         ):
             index += 1
         
         if index == len(ingredients):
             for ingredient in self.ingredients[order]:
-                self.toBuy[ingredient] = self.toBuy[ingredient] + 1
+                self.get_quantities_to_buy[ingredient] = self.get_quantities_to_buy[ingredient] + 1
         else:
             return False
 
     def get_quantities_to_buy(self):
-        return self.toBuy
+        return self.get_quantities_to_buy
 
     def get_available_dishes(self):
         dishes = self.ingredients.keys()
@@ -59,7 +59,7 @@ class InventoryControl:
             index = 0
             while (
                 index < len(ingredients)
-                and self.toBuy[ingredients[index]]
+                and self.get_quantities_to_buy[ingredients[index]]
             ):
                 index += 1
             
