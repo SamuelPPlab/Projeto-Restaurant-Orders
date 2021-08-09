@@ -1,5 +1,6 @@
 import csv
 
+
 def mais_pedido_por_maria(orders):
     count = {}
     pedidos_maria = [item[1] for item in orders if item[0] == 'maria']
@@ -13,12 +14,14 @@ def mais_pedido_por_maria(orders):
 
     return mais_frequente
 
+
 def pedidos_hamburguer_por_arnaldo(orders):
     arnaldo_ambuguer_orders = [
         item[1] for item in orders
         if item[0] == 'arnaldo' and item[1] == 'hamburguer'
     ]
     return len(arnaldo_ambuguer_orders)
+
 
 def nao_pedido_por_john(orders):
     pratos_do_john = [item[1] for item in orders if item[0] == 'joao']
@@ -28,6 +31,7 @@ def nao_pedido_por_john(orders):
     ]
 
     return set(nao_sao_pratos_do_john)
+
 
 def john_nao_estava_presente(orders):
     com_john = [

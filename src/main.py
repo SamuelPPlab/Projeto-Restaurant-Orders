@@ -3,7 +3,6 @@ from pubsub import pub
 from inventory_control import InventoryControl
 from track_orders import TrackOrders
 
-'''start'''
 
 def print_info(tracker, control):
     print(tracker.get_most_ordered_dish_per_costumer('maria'))
