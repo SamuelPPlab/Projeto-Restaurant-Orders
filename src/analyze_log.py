@@ -23,7 +23,7 @@ def data_organize(data):
             data_client[name]["foods"][food] += 1
         else:
             data_client[name]["foods"].update({food: 1})
-
+    print(data_client)
     return data_client
 
 
@@ -68,3 +68,5 @@ def analyze_log(path_to_file):
 
 
 # construido em pair programming com Luciano Berschon
+
+analyze_log('./data/orders_1.csv')
