@@ -10,11 +10,9 @@ class TrackOrders:
 
     def get_most_ordered_dish_per_costumer(self, costumer):
         data_client = {}
-
         for item in self.orders:
-            name = item[0]
             food = item[1]
-            if item[0] == name:
+            if item[0] == costumer:
                 if item[1] in data_client:
                     data_client[food] += 1
                 else:
@@ -33,13 +31,35 @@ class TrackOrders:
         return carte - client_orders
 
     def get_days_never_visited_per_costumer(self, costumer):
-        pass
+        client_orders = set()
+        open_days = set()
+        for item in self.orders:
+            name = item[0]
+            day = item[2]
+            open_days.add(day)
+            if name == costumer:
+                client_orders.add(day)
+        return open_days - client_orders
 
     def get_busiest_day(self):
-        pass
+        days = {}
+        for item in self.orders:
+            day = item[2]
+            if day in days:
+                days[day] += 1
+            else:
+                days[day] = 1
+        return max(days, key=days.get)
 
     def get_least_busy_day(self):
-        pass
+        days = {}
+        for item in self.orders:
+            day = item[2]
+            if day in days:
+                days[day] += 1
+            else:
+                days[day] = 1
+        return min(days, key=days.get)
 
 
 # consultado o seguinte PR:
