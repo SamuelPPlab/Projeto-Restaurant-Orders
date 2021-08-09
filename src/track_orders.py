@@ -2,7 +2,10 @@ from typing import Counter
 
 
 class TrackOrders:
+
     def __init__(self):
+        self.track = {}
+        self.days = {}
         self.orders = set()
 
     def __len__(self):
@@ -10,20 +13,31 @@ class TrackOrders:
 
     def add_new_order(self, costumer, order, day):
         self.orders.add((costumer, order, day))
+    
+    def search_qtd(self, list):
+        count = 0
+        order_more_requeted = ""
+        for item, qtd in list.items():
+            if qtd > count:
+                count = qtd
+                order_more_requeted = item
+        return order_more_requeted
 
     def get_most_ordered_dish_per_costumer(self, costumer):
-        count = 0
-        mock_order = {}
-        for order in range(len(self.all_order)):
-            if self.all_order[order]["costumer"] == costumer:
-                mock_order[
-                    self.all_order[order]["order"]
-                ] = self.all_order.count(self.all_order[order])
-        for num in mock_order:
-            if mock_order[num] > count:
-                count = mock_order[num]
-                self.most_ordered = num
-        return self.most_ordered
+        order = {}
+
+        def filter_customer(x):
+            return costumer in x
+
+        orders_costumer = list(filter(filter_customer, self.orders))
+        for client, order_client, day in orders_costumer:
+            if order_client not in order:
+                order[order_client] = set()
+                order[order_client] = 0
+
+            order[order_client] += 1
+
+        return self.search_qtd(order)
 
     def get_never_ordered_per_costumer(self, costumer):
         all_dishes = set()
@@ -46,13 +60,11 @@ class TrackOrders:
         return all_days.difference(client_days)
 
     def get_busiest_day(self):
-        self.get_frequency()
-        values, keys = list(self.frequency.values()), list(
-            self.frequency.keys()
-        )
-        max_value = max(values)
-        busiest_day = keys[values.index(max_value)]
-        return busiest_day
+        return [
+            day
+            for day in self.days.keys()
+            if self.days[day] == max(self.days.values())
+        ][0]
 
     def get_least_busy_day(self):
         working_days = []
