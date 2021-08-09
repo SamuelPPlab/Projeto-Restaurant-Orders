@@ -4,12 +4,8 @@ from src.client import client
 
 def data_organize(data):
     days = {
-        # "domingo": 0,
         "segunda-feira": 0,
         "terça-feira": 0,
-        # "quarta-feira": 0,
-        # "quinta-feira": 0,
-        # "sexta-feira": 0,
         "sabado": 0,
     }
     data_client = {}
@@ -69,3 +65,6 @@ def analyze_log(path_to_file):
         text_file.write(f"{str(data['arnaldo']['foods']['hamburguer'])}\n")
         text_file.write(f"{str(joao_not_order)}\n")
         text_file.write(f"{str(joao_at_home)}\n")
+
+
+# construido em pair programming com Luciano Berschon
