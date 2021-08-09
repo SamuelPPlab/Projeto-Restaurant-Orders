@@ -54,11 +54,11 @@ def analyze_log(path_to_file):
     orders = leitor_arquivo(path_to_file)
 
     with open("data/mkt_campaign.txt", "w") as analyze_file:
-        analyze_file.write(f"{mais_pedido("maria", orders)}\n")
+        analyze_file.write(f"{mais_pedido('maria', orders)}\n")
         analyze_file.write(
-            f"{qunatidade("arnaldo","hamburguer", orders)}\n"
+            f"{qunatidade('arnaldo','hamburguer', orders)}\n"
         )
         analyze_file.write(
-            f"{nunca_pedidos("joao", orders)}\n"
+            f"{nunca_pedidos('joao', orders)}\n"
         )
-        analyze_file.write(f"{dias_sem_pedir("joao", orders)}\n")
+        analyze_file.write(f"{dias_sem_pedir('joao', orders)}\n")
