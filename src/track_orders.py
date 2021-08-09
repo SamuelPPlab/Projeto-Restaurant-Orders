@@ -1,3 +1,6 @@
+from inventory_control import InventoryControl
+
+
 class TrackOrders:
     def __init__(self):
         self.orders = {}
@@ -19,10 +22,15 @@ class TrackOrders:
             self.orders[costumer] = {"dishes": {order: 1}, "days": {day: 1}}
 
     def get_most_ordered_dish_per_costumer(self, costumer):
-        pass
+        return max(
+            self.orders[costumer]["dishes"],
+            key=self.orders[costumer]["dishes"].get,
+        )
 
     def get_never_ordered_per_costumer(self, costumer):
-        pass
+        return set(InventoryControl.INGREDIENTS.keys()).difference(
+            self.orders[costumer]["dishes"].keys()
+        )
 
     def get_days_never_visited_per_costumer(self, costumer):
         pass
