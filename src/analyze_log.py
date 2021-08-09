@@ -43,7 +43,7 @@ def dias_sem_pedir(nome, pedidos):
         dias.add(pedido[2])
     for pedido in pedidos:
         if pedido[0] == nome:
-            dias_com_pedidos.add(dia[2])
+            dias_com_pedidos.add(pedido[2])
     return dias.difference(dias_com_pedidos)
 
 
