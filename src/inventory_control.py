@@ -1,7 +1,9 @@
 from src.track_orders import TrackOrders
 
+
 class InventoryControl:
     orders = TrackOrders()
+
     def __init__(self):
 
         self.ingredients = {
