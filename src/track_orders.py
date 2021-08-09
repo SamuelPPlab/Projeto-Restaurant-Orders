@@ -15,9 +15,9 @@ class TrackOrders:
 
     def get_most_ordered_dish_per_costumer(self, costumer):
         order_list = []
-        for item in self.pedidos:
-            if item["name"] == costumer:
-                order_list.append(item.order)
+        for order in self.pedidos:
+            if order["name"] == costumer:
+                order_list.append(order["order"])
         return collections.Counter(order_list).most_common(1)[0][0]
 
     def get_never_ordered_per_costumer(self, costumer):
