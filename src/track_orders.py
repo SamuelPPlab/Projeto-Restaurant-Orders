@@ -1,10 +1,11 @@
-from inventory_control import InventoryControl
+from .inventory_control import InventoryControl
 from collections import Counter
 
 
 class TrackOrders:
     def __init__(self):
         self.orders = {}
+        self.open_days = set()
 
     def __len__(self):
         return sum(
@@ -26,6 +27,7 @@ class TrackOrders:
                 self.orders[costumer]["days"][day] = 1
         else:
             self.orders[costumer] = {"dishes": {order: 1}, "days": {day: 1}}
+        self.open_days.add(day)
 
     def get_most_ordered_dish_per_costumer(self, costumer):
         return max(
@@ -39,27 +41,14 @@ class TrackOrders:
         )
 
     def get_days_never_visited_per_costumer(self, costumer):
-        return set(
-            [
-                "segunda-feira",
-                "terça-feira",
-                "quarta-feira",
-                "quinta-feira",
-                "sexta-feira",
-                "sabado",
-                "domingo",
-            ]
-        ).difference(self.orders[costumer]["days"].keys())
+        return self.open_days.difference(self.orders[costumer]["days"].keys())
 
     def frequency_day(self):
-        return Counter(
-            day
-            for days in [
-                list(costumer["days"].keys())
-                for costumer in self.orders.values()
-            ]
-            for day in days
+        test = sum(
+            (Counter(costumer["days"]) for costumer in self.orders.values()),
+            Counter(),
         )
+        return test
 
     def get_busiest_day(self):
         frequency = self.frequency_day()
