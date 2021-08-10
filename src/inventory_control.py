@@ -4,10 +4,8 @@ from collections import Counter
 class InventoryControl:
     INGREDIENTS = {
         "hamburguer": ["pao", "carne", "queijo"],
-        "pizza": ["massa", "queijo", "molho", "tomate"],
-        "queijo-quente": ["pao", "queijo", "queijo"],
+        "pizza": ["massa", "queijo", "molho"],
         "misto-quente": ["pao", "queijo", "presunto"],
-        "bauru": ["pao", "queijo", "presunto", "tomate"],
         "coxinha": ["massa", "frango"],
     }
     MINIMUM_INVENTORY = {
@@ -19,6 +17,17 @@ class InventoryControl:
         "massa": 50,
         "frango": 50,
     }
+
+    def get_available_dishes(self):
+        available_dishes = set()
+        for ingredient, inventory_list in self.INGREDIENTS.items():
+            flag = True
+            for inventory in inventory_list:
+                if self.inventory[inventory] <= 0:
+                    flag = False
+            if flag:
+                available_dishes.add(ingredient)
+        return available_dishes
 
     def __init__(self):
         self.inventory = self.MINIMUM_INVENTORY.copy()
