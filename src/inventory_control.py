@@ -2,10 +2,8 @@ class InventoryControl:
     def __init__(self):
         self.INGREDIENTS = {
             'hamburguer': ['pao', 'carne', 'queijo'],
-            'pizza': ['massa', 'queijo', 'molho', 'tomate'],
-            'queijo-quente': ['pao', 'queijo', 'queijo'],
+            'pizza': ['massa', 'queijo', 'molho'],
             'misto-quente': ['pao', 'queijo', 'presunto'],
-            'bauru': ['pao', 'queijo', 'presunto', 'tomate'],
             'coxinha': ['massa', 'frango'],
         }
         self.MINIMUM_INVENTORY = {
@@ -16,19 +14,17 @@ class InventoryControl:
             'presunto': 50,
             'massa': 50,
             'frango': 50,
-            'tomate': 50,
         }
 
         self.to_buy = {
-                'pao': 0,
-                'carne': 0,
-                'queijo': 0,
-                'molho': 0,
-                'presunto': 0,
-                'massa': 0,
-                'frango': 0,
-                'tomate': 0,
-            }
+            'pao': 0,
+            'carne': 0,
+            'queijo': 0,
+            'molho': 0,
+            'presunto': 0,
+            'massa': 0,
+            'frango': 0,
+        }
 
     def add_new_order(self, costumer, order, day):
         available_ingredients = set()
