@@ -48,19 +48,9 @@ def get_order_never_asked_by_customer(log, customer):
 
 def get_days_never_visited_per_costumer(log, customer):
     weekdays = set()
-    weekdays.update(
-        [
-            "segunda-feira",
-            "terça-feira",
-            "quarta-feira",
-            "quinta-feira",
-            "sexta-feira",
-            "sábado",
-            "domingo",
-        ]
-    )
     customer_weekdays = set()
     for item in log:
+        weekdays.add(item["weekday"])
         if item["customer"] == customer:
             customer_weekdays.add(item["weekday"])
     return weekdays.difference(customer_weekdays)
