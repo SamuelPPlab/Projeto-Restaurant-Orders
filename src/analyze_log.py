@@ -47,4 +47,4 @@ def analyze_log(path_to_file):
             create_txt('mkt_campaign.txt', f"{request_maria_max}\n{count}\n{never_request}\n{day_of_week(joao_request)}") 
 
 
-print(analyze_log("data/orders_1.csv"))
+# print(analyze_log("data/orders_1.csv"))
