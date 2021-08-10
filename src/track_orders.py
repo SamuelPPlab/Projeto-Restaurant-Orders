@@ -19,3 +19,6 @@ class TrackOrders:
 
     def get_least_busy_day(self):
         pass
+
+    def get_dish_quantity_per_costumer(self, costumer, order):
+        pass
