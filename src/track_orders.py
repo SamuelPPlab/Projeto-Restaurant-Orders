@@ -49,7 +49,11 @@ class TrackOrders:
         return (most_ordered[0])[0]
 
     def get_least_busy_day(self):
-        pass
+        counter = {}
+        for item in self.orders:
+            counter[item["weekday"]] = counter.get(item["order"], 0) + 1
+        most_ordered = Counter(counter).most_common()[::-1]
+        return (most_ordered[0])[0]
 
     def get_dish_quantity_per_costumer(self, costumer, order):
         pass
