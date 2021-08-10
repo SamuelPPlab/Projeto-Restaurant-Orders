@@ -11,20 +11,20 @@ def print_info(tracker, control):
     print(tracker.get_days_never_visited_per_costumer('joao'))
 
     def main():
-     topic = "order"
-     path = "data/orders_1.csv"
+        topic = "order"
+        path = "data/orders_1.csv"
 
-    tracker = TrackOrders()
-    control = InventoryControl()
-    subs = [tracker.add_new_order, control.add_new_order]
-    for sub in subs:
-        pub.subscribe(sub, topic)
+        tracker = TrackOrders()
+        control = InventoryControl()
+        subs = [tracker.add_new_order, control.add_new_order]
+        for sub in subs:
+            pub.subscribe(sub, topic)
 
-     with open(path) as csv_file:
-         csv_reader = csv.reader(csv_file, delimiter=',')
-          for costumer, order, day in csv_reader:
-            pub.sendMessage(topic, costumer=costumer, order=order, day=day)
+        with open(path) as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            for costumer, order, day in csv_reader:
+                pub.sendMessage(topic, costumer=costumer, order=order, day=day)
 
     print_info(tracker, control)
-if __name__ == "__main__":
-    main()
+    if __name__ == "__main__":
+        main()
