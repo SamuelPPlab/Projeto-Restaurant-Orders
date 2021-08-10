@@ -31,3 +31,15 @@ class InventoryControl:
             - self.inventory.get(ingredient, 0)
             for ingredient in self.MINIMUM_INVENTORY.keys()
         }
+
+    def get_available_dishes(self):
+        available_ingredients = set(
+            ingredient
+            for ingredient in self.inventory
+            if self.inventory[ingredient] > 0
+        )
+        return {
+            dish
+            for dish in self.INGREDIENTS
+            if set(self.INGREDIENTS[dish]).issubset(available_ingredients)
+        }
