@@ -1,4 +1,5 @@
 from inventory_control import InventoryControl
+from collections import Counter
 
 
 class TrackOrders:
@@ -6,7 +7,12 @@ class TrackOrders:
         self.orders = {}
 
     def __len__(self):
-        pass
+        return sum(
+            [
+                sum(list(costumer["dishes"].values()))
+                for costumer in self.orders.values()
+            ]
+        )
 
     def add_new_order(self, costumer, order, day):
         if costumer in self.orders:
@@ -45,8 +51,27 @@ class TrackOrders:
             ]
         ).difference(self.orders[costumer]["days"].keys())
 
+    def frequency_day(self):
+        return Counter(
+            day
+            for days in [
+                list(costumer["days"].keys())
+                for costumer in self.orders.values()
+            ]
+            for day in days
+        )
+
     def get_busiest_day(self):
-        pass
+        frequency = self.frequency_day()
+        return max(frequency, key=frequency.get)
 
     def get_least_busy_day(self):
-        pass
+        frequency = self.frequency_day()
+        return min(frequency, key=frequency.get)
+
+    def get_dish_quantity_per_costumer(self, costumer, dish):
+        return (
+            self.orders[costumer]["dishes"][dish]
+            if dish in self.orders[costumer]["dishes"]
+            else 0
+        )
