@@ -24,7 +24,13 @@ class TrackOrders:
         return (most_ordered[0])[0]
 
     def get_never_ordered_per_costumer(self, costumer):
-        pass
+        orders_type = set()
+        costumer_orders = set()
+        for item in self.orders:
+            orders_type.add(item["order"])
+            if item["costumer"] == costumer:
+                costumer_orders.add(item["order"])
+        return orders_type.difference(costumer_orders)
 
     def get_days_never_visited_per_costumer(self, costumer):
         pass
