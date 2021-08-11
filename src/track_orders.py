@@ -9,7 +9,14 @@ class TrackOrders:
         self.orders.append([costumer, order, day])
 
     def get_most_ordered_dish_per_costumer(self, costumer):
-        pass
+        food_requested = {}
+        for row in self.orders:
+            if row[0] == costumer:
+                if row[1] in food_requested:
+                    food_requested[row[1]] += 1
+                else:
+                    food_requested[row[1]] = 1
+        return max(food_requested, key=food_requested.get)
 
     def get_dish_quantity_per_costumer(self, costumer, order):
         pass
