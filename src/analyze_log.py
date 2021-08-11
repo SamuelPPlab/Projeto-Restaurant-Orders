@@ -26,8 +26,14 @@ def day_of_week(list_orders, costumer):
     return result
 
 
-def max_order(order_list):
-    return max(set(order_list), key=order_list.count)
+def max_order(order_list, costumer):
+    orders_costumer = []
+    all_products = list(product for product in order_list)
+    for item in all_products:
+        if item[0] == costumer:
+            orders_costumer.append(item[1])
+
+    return max(set(orders_costumer), key=orders_costumer.count)
 
 
 def never_order(list_order, costumer):
@@ -49,18 +55,16 @@ def analyze_log(path_to_file):
             .format(path_to_file))
     else:
         with open(path_to_file) as csvfile:
-            maria_request = []
             count = 0
             doc_reader = csv.reader(csvfile)
             data_csv = list((item for item in doc_reader))
             for request in data_csv:
-                if request[0] == 'maria':
-                    maria_request.append(request[1])
                 if request[0] == 'arnaldo':
                     if request[1] == 'hamburguer':
                         count += 1
 
     create_txt(
         'mkt_campaign.txt',
-        f"{max_order(maria_request)}\n{count}\n{never_order(data_csv, 'joao')}\n{day_of_week(data_csv,'joao')}"
+        f"{max_order(data_csv, 'maria')}\n{count}\n{never_order(data_csv, 'joao')}"+
+        f"\n{day_of_week(data_csv,'joao')}"
     )
