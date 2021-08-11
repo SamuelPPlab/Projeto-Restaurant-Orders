@@ -40,7 +40,7 @@ def analyze_log(path_to_file):
                         count += 1
                 if request[0] == 'joao':
                     joao_request.append(request)
-            
+
             list_food2 = list(item[1] for item in arnaldo_request)
             list_food = maria_request + list_food2
             list_food_joao = list(item[1] for item in joao_request)
@@ -49,7 +49,11 @@ def analyze_log(path_to_file):
                 if item not in list_food_joao
                 }
             request_maria_max = max(set(maria_request),
-            key=maria_request.count)
-                      
-            create_txt('mkt_campaign.txt', 
-            f"{request_maria_max}\n{count}\n{never_request}\n{day_of_week(joao_request)}") 
+                key=maria_request.count
+                )
+
+            create_txt(
+               'mkt_campaign.txt',
+                f"{request_maria_max}\n{count}\n{never_request}" +
+                "\n{day_of_week(joao_request)}"
+                )

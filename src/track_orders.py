@@ -1,7 +1,7 @@
 class TrackOrders:
     def __len__(self):
         return len(self.orders)
-    
+
     def __init__(self):
         self.orders = []
 
@@ -24,7 +24,7 @@ class TrackOrders:
                 dish_ordered.append(item['order'])
             ordered.append(item['order'])
             never_ordered = {
-                item for item in ordered 
+                item for item in ordered
                 if item not in dish_ordered
                 }
             return never_ordered
