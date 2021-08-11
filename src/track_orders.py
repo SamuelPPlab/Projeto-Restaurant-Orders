@@ -6,7 +6,7 @@ class TrackOrders:
         self.orders = []
 
     def add_new_order(self, costumer, order, day):
-        self.orders.append({'name': costumer, 'order':order, 'day':day })
+        self.orders.append({'name': costumer, 'order': order, 'day': day })
         return self.orders
 
     def get_most_ordered_dish_per_costumer(self, costumer):
@@ -23,7 +23,10 @@ class TrackOrders:
             if item['name'] == costumer:
                 dish_ordered.append(item['order'])
             ordered.append(item['order'])
-            never_ordered = {item for item in ordered if item not in dish_ordered}
+            never_ordered = {
+                item for item in ordered 
+                if item not in dish_ordered
+                }
             return never_ordered
 
     def get_days_never_visited_per_costumer(self, costumer):
