@@ -75,7 +75,7 @@ def analyze_log(path_to_file):
     joao_orders = []
     joao_weekdays = []
 
-    for orders in orders_history:        
+    for orders in orders_history:
         if(orders['client_name'] == 'maria'):
             maria_orders.append(orders['order'])
         elif(orders['client_name'] == 'arnaldo'):
