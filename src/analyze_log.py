@@ -65,6 +65,7 @@ def analyze_log(path_to_file):
 
     create_txt(
         'mkt_campaign.txt',
-        f"{max_order(data_csv, 'maria')}\n{count}\n{never_order(data_csv, 'joao')}"+
+        f"{max_order(data_csv, 'maria')}\n{count}" +
+        f"\n{never_order(data_csv, 'joao')}" +
         f"\n{day_of_week(data_csv,'joao')}"
     )
