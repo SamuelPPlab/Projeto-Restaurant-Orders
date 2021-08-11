@@ -1,5 +1,4 @@
 import csv
-from os import openpty
 
 
 def create_txt(name, content):
@@ -19,8 +18,11 @@ def day_of_week(list_orders, costumer):
         if order[0] == costumer:
             days_of_joao.append(order[2])
         all_days.append(order[2])
-    
-    result = {item for item in sorted(set(all_days)) if item not in days_of_joao}
+
+    result = {
+        item for item in sorted(set(all_days))
+        if item not in days_of_joao
+    }
     return result
 
 
@@ -38,6 +40,7 @@ def never_order(list_order, costumer):
     return {
         item for item in sorted(set(all_itens)) if item not in order
     }
+
 
 def analyze_log(path_to_file):
     if ".csv" not in path_to_file:
@@ -57,4 +60,7 @@ def analyze_log(path_to_file):
                     if request[1] == 'hamburguer':
                         count += 1
 
-    create_txt('mkt_campaign.txt',f"{max_order(maria_request)}\n{count}\n{never_order(data_csv, 'joao')}\n{day_of_week(data_csv,'joao')}")
+    create_txt(
+        'mkt_campaign.txt',
+        f"{max_order(maria_request)}\n{count}\n{never_order(data_csv, 'joao')}\n{day_of_week(data_csv,'joao')}"
+    )
