@@ -111,4 +111,4 @@ def analyze_log(path_to_file):
 
             return report
     else:
-        raise FileNotFoundError("File Not Found Error")
+        raise FileNotFoundError(f"No such file or directory: '{path_to_file}'")
