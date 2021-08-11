@@ -60,7 +60,7 @@ class TrackOrders:
     def quantity_days_open_per_day(self):
         return sum(
             (Counter(costumer["days"]) for costumer in self.orders.values()),
-            Counter(),  # initializes an empty Counter as initial value of sum
+            Counter(),  # initialize an empty Counter as initial value of sum
         )
 
     def get_busiest_day(self):
