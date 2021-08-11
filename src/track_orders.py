@@ -19,12 +19,11 @@ class TrackOrders:
     def get_never_ordered_per_costumer(self, costumer):
         ordered = []
         dish_ordered = []
-        never_ordered = set()
         for item in self.orders:
             if item['name'] == costumer:
-                dish_ordered.append(ordered['order'])
-            ordered.append(ordered['order'])
-            never_ordered = {item for item in sorted(set(dish_ordered)) if item not in ordered}
+                dish_ordered.append(item['order'])
+            ordered.append(item['order'])
+            never_ordered = {item for item in ordered if item not in dish_ordered}
             return never_ordered
 
     def get_days_never_visited_per_costumer(self, costumer):
