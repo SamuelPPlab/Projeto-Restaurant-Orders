@@ -46,9 +46,16 @@ def order_never_ordered_from_menu(joao_orders):
     return menu.difference(orders)
 
 
-def days_with_no_order(days_with_order):
-    days_of_week = set(['segunda-feira', 'terça-feira', 'quarta-feira',
-                        'quinta-feira', 'sexta-feira', 'sábado', 'domingo'])
+def find_days_used(orders):
+    days_used = []
+    for orders in orders:
+        if(orders['days_of_week'] not in days_used):
+            days_used.append(orders['days_of_week'])
+    return days_used
+
+
+def days_with_no_order(days_used, days_with_order):
+    days_of_week = set(days_used)
     days = set(days_with_order)
 
     return days_of_week.difference(days)
@@ -68,7 +75,7 @@ def analyze_log(path_to_file):
     joao_orders = []
     joao_weekdays = []
 
-    for orders in orders_history:
+    for orders in orders_history:        
         if(orders['client_name'] == 'maria'):
             maria_orders.append(orders['order'])
         elif(orders['client_name'] == 'arnaldo'):
@@ -77,8 +84,9 @@ def analyze_log(path_to_file):
             joao_orders.append(orders['order'])
             joao_weekdays.append(orders['days_of_week'])
 
+    days = find_days_used(orders_history)
     write_file(filename, most_wanted_order(maria_orders))
     write_file(filename, count_orders_in_order(arnaldo_orders, 'hamburguer'))
     write_file(filename, order_never_ordered_from_menu(joao_orders))
-    write_file(filename, days_with_no_order(joao_weekdays))
+    write_file(filename, days_with_no_order(days, joao_weekdays))
     # raise NotImplementedError
