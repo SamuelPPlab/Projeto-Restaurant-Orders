@@ -5,10 +5,14 @@ def read_file_to_dictionary(path_to_file):
     file_type = path_to_file.split(".")[1]
     if file_type == "csv":
         columns_names = ['client_name', 'order', 'days_of_week']
-        with open(path_to_file, newline="") as csvfile:
-            reader = list(csv.DictReader(csvfile, columns_names))
+        try:
+            with open(path_to_file, newline="") as csvfile:
+                reader = list(csv.DictReader(csvfile, columns_names))
+        except NameError:
+            raise FileNotFoundError(
+                f"No such file or directory: '{path_to_file}'")
     else:
-        raise ValueError(f'No such file or directory: {path_to_file}')
+        raise FileNotFoundError(f"No such file or directory: '{path_to_file}'")
     return reader
 
 

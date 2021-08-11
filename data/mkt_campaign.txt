@@ -1,4 +1,4 @@
 hamburguer
 1
-{'coxinha', 'pizza', 'misto-quente'}
-{'quarta-feira', 'domingo', 'sexta-feira', 'sábado', 'segunda-feira', 'quinta-feira'}
+{'coxinha', 'misto-quente', 'pizza'}
+{'sábado', 'quarta-feira', 'segunda-feira', 'quinta-feira', 'sexta-feira', 'domingo'}
