@@ -1,5 +1,6 @@
 from csv import DictReader
 
+
 def resposta_maria(pedidos):
     todosPedidosDaMaria = {}
 
@@ -12,7 +13,7 @@ def resposta_maria(pedidos):
         else:
             todosPedidosDaMaria[pedido["pedido"]] = 1
 
-    return max( todosPedidosDaMaria, key=todosPedidosDaMaria.get )
+    return max(todosPedidosDaMaria, key=todosPedidosDaMaria.get)
 
 
 def resposta_Arnaldo(pedidos):
@@ -47,6 +48,7 @@ def diasQueJoaoNaoFrequenta(pedidos):
             diasQueJoaoFrequenta.add(pedido["dia"])
 
     return todosDias.difference(diasQueJoaoFrequenta)
+
 
 def analyze_log(path_to_file):
     with open(path_to_file, mode="r") as res:
