@@ -1,7 +1,5 @@
-from statistics import mode
-
+#from statistics import mode
 # mode é uma função que retorna o valor mais presente em um conjunto de valores.
-
 
 class TrackOrders:
     def __init__(self):
