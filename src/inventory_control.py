@@ -1,11 +1,9 @@
 class InventoryControl:
     INGREDIENTS = {
-        "hamburguer": ["pao", "carne", "queijo"],
-        "pizza": ["massa", "queijo", "molho", "tomate"],
-        "queijo-quente": ["pao", "queijo", "queijo"],
-        "misto-quente": ["pao", "queijo", "presunto"],
-        "bauru": ["pao", "queijo", "presunto", "tomate"],
-        "coxinha": ["massa", "frango"],
+        'hamburguer': ['pao', 'carne', 'queijo'],
+        'pizza': ['massa', 'queijo', 'molho'],
+        'misto-quente': ['pao', 'queijo', 'presunto'],
+        'coxinha': ['massa', 'frango'],
     }
     MINIMUM_INVENTORY = {
         "pao": 50,
