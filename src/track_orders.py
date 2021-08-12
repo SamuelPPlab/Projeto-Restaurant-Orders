@@ -41,10 +41,16 @@ class TrackOrders:
         return week.difference(costumer_week_day)
 
     def get_busiest_day(self):
-        pass
+        requests = []
+        for item in self.demand:
+            requests.append(item["week_day"])
+        return collections.Counter(requests).most_common(1)[0][0]
 
     def get_least_busy_day(self):
-        pass
+        requests = []
+        for item in self.demand:
+            requests.append(item["week_day"])
+        return collections.Counter(requests).most_common()[-1][0]
 
 
 csv_parsed = [
