@@ -16,15 +16,15 @@ class InventoryControl:
     }
 
     def __init__(self):
+        self.menu = self.INGREDIENTS.copy()
         self.current_inventory_orders = self.MINIMUM_INVENTORY.copy()
         self.costs_inventory_orders = {
             ingredient: 0 for ingredient in self.MINIMUM_INVENTORY.keys()
         }
 
-    def add_new_order(self, costumer, order, day):
-        ingredients = self.INGREDIENTS[order]
-        for item in ingredients:
-            if self.current_inventory_orders[item] == 0:
+    def add_new_order(self, _costumer, order, _day):
+        for item in self.INGREDIENTS[order]:
+            if self.current_inventory_orders[item] < 1:
                 return False
             self.costs_inventory_orders[item] += 1
             self.current_inventory_orders[item] -= 1
@@ -32,17 +32,25 @@ class InventoryControl:
     def get_quantities_to_buy(self):
         return self.costs_inventory_orders
 
+    def get_available_dishes(self):
+        new_menu = self.menu.keys()
+        for ingredient, count in self.current_inventory_orders.items():
+            if count == 0:
+                new_menu = [
+                    dish
+                    for dish in new_menu
+                    if ingredient not in self.menu[dish]
+                ]
+        self.menu = set(new_menu)
+        return self.menu
+
 
 if __name__ == "__main__":
-    inventory = InventoryControl()
+    ingredients = InventoryControl()
     count = 1
-    while count <= 30:
-        inventory.add_new_order("jorge", "hamburguer", "terça-feira")
+    while count <= 50:
+        ingredients.add_new_order("jorge", "coxinha", "terça-feira")
         count += 1
-
-    print(inventory.add_new_order("jorge", "hamburguer", "terça-feira"))
-    print(inventory.get_quantities_to_buy())
-    print(inventory.current_inventory_orders)
-
-    new_inventory = InventoryControl()
-    print(new_inventory.current_inventory_orders)
+    ingredients.add_new_order("jorge", "coxinha", "terça-feira")
+    print(ingredients.get_quantities_to_buy())
+    print(ingredients.get_available_dishes())

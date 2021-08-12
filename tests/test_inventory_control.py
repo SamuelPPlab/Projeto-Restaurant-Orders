@@ -70,18 +70,18 @@ def test_validar_ingrediente_compartilhados():
     assert hamburguer_pizza == total_ingredients
 
 
-# def test_listar_todo_os_pratos_com_ingredientes():
-#     ingredients = InventoryControl()
-#     ingredients.add_new_order("jorge", "coxinha", "terça-feira")
-#     dishes = ingredients.get_available_dishes()
-#     assert dishes == {"hamburguer", "pizza", "misto-quente", "coxinha"}
+def test_listar_todo_os_pratos_com_ingredientes():
+    ingredients = InventoryControl()
+    ingredients.add_new_order("jorge", "coxinha", "terça-feira")
+    dishes = ingredients.get_available_dishes()
+    assert dishes == {"hamburguer", "pizza", "misto-quente", "coxinha"}
 
 
-# def test_nao_listar_pratos_sem_ingredientes():
-#     ingredients = InventoryControl()
-#     count = 1
-#     while count <= 50:
-#         ingredients.add_new_order("jorge", "coxinha", "terça-feira")
-#         count += 1
-#     dishes = ingredients.get_available_dishes()
-#     assert dishes == {"hamburguer", "misto-quente"}
+def test_nao_listar_pratos_sem_ingredientes():
+    ingredients = InventoryControl()
+    count = 1
+    while count <= 50:
+        ingredients.add_new_order("jorge", "coxinha", "terça-feira")
+        count += 1
+    dishes = ingredients.get_available_dishes()
+    assert dishes == {"hamburguer", "misto-quente"}
