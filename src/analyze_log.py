@@ -10,7 +10,7 @@ def resposta_maria(pedidos):
             and pedido["pedido"] in todosPedidosDaMaria
         ):
             todosPedidosDaMaria[pedido["pedido"]] += 1
-        elif(pedido["nome"] == "maria"):
+        elif pedido["nome"] == "maria":
             todosPedidosDaMaria[pedido["pedido"]] = 1
 
     return max(todosPedidosDaMaria, key=todosPedidosDaMaria.get)
