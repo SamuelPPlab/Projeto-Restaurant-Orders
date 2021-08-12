@@ -1,16 +1,6 @@
 from csv import DictReader
 
-
-def analyze_log(path_to_file):
-    with open(path_to_file, mode="r") as res:
-        pedidos = list(DictReader(res, fieldnames=["nome", "pedido", "dia"]))
-
-    # Arnaldo
-    hamburguersForArnaldo = [
-        pedido["pedido"] for pedido in pedidos if pedido["nome"] == "arnaldo"
-    ].count("hamburguer")
-
-    # Maria
+def resposta_maria(pedidos):
     todosPedidosDaMaria = {}
 
     for pedido in pedidos:
@@ -22,14 +12,18 @@ def analyze_log(path_to_file):
         else:
             todosPedidosDaMaria[pedido["pedido"]] = 1
 
-    pratoMaisPedidoDaMaria = max(
-        todosPedidosDaMaria, key=todosPedidosDaMaria.get
-    )
+    return max( todosPedidosDaMaria, key=todosPedidosDaMaria.get )
 
+
+def resposta_Arnaldo(pedidos):
+    return [
+        pedido["pedido"] for pedido in pedidos if pedido["nome"] == "arnaldo"
+    ].count("hamburguer")
+
+
+def pratoNuncaPedidoPorJoao(pedidos):
     pratosDoJoão = set()
     todosOsPratos = set()
-    diasQueJoaoFrequenta = set()
-    todosDias = set()
 
     for pedido in pedidos:
         todosOsPratos.add(pedido["pedido"])
@@ -38,7 +32,12 @@ def analyze_log(path_to_file):
         if pedido["nome"] == "joao":
             pratosDoJoão.add(pedido["pedido"])
 
-    pratoNuncaPedidoPorJoao = todosOsPratos.difference(pratosDoJoão)
+    return todosOsPratos.difference(pratosDoJoão)
+
+
+def diasQueJoaoNaoFrequenta(pedidos):
+    diasQueJoaoFrequenta = set()
+    todosDias = set()
 
     for pedido in pedidos:
         todosDias.add(pedido["dia"])
@@ -47,12 +46,16 @@ def analyze_log(path_to_file):
         if pedido["nome"] == "joao":
             diasQueJoaoFrequenta.add(pedido["dia"])
 
-    diasQueJoaoNaoFrequenta = todosDias.difference(diasQueJoaoFrequenta)
+    return todosDias.difference(diasQueJoaoFrequenta)
+
+def analyze_log(path_to_file):
+    with open(path_to_file, mode="r") as res:
+        pedidos = list(DictReader(res, fieldnames=["nome", "pedido", "dia"]))
 
     with open("data/mkt_campaign.txt", "w") as txt:
         txt.write(
-            f"{pratoMaisPedidoDaMaria}\n"
-            f"{hamburguersForArnaldo}\n"
-            f"{pratoNuncaPedidoPorJoao}\n"
-            f"{diasQueJoaoNaoFrequenta}\n"
+            f"{resposta_maria(pedidos)}\n"
+            f"{resposta_Arnaldo(pedidos)}\n"
+            f"{pratoNuncaPedidoPorJoao(pedidos)}\n"
+            f"{diasQueJoaoNaoFrequenta(pedidos)}\n"
         )
