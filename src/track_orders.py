@@ -25,7 +25,13 @@ class TrackOrders:
         return food_never_requested
 
     def get_days_never_visited_per_costumer(self, costumer):
-        pass
+        day_with_requests = self.days_requested(costumer)
+        days = self.get_days()
+        days_never_requested = set()
+        for day in days:
+            if day not in day_with_requests:
+                days_never_requested.add(day)
+        return days_never_requested
 
     def get_busiest_day(self):
         pass
@@ -49,3 +55,20 @@ class TrackOrders:
             if row[1] not in menu:
                 menu.add(row[1])
         return menu
+
+    def get_days(self):
+        days = set()
+        for row in self.orders:
+            if row[2] not in days:
+                days.add(row[2])
+        return days
+
+    def days_requested(self, costumer):
+        days_requested = {}
+        for row in self.orders:
+            if row[0] == costumer:
+                if row[2] in days_requested:
+                    days_requested[row[2]] += 1
+                else:
+                    days_requested[row[2]] = 1
+        return days_requested
