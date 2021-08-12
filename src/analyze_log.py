@@ -47,9 +47,9 @@ def order_set(list_order):
 
 def didnt_go(list_order, client_order):
     set_day = set()
+    set_days_food = set()
     for order in list_order:
         set_day.add(order['day'])
-    set_days_food = set()
     for order in client_order:
         set_days_food.add(order['day'])
     return set_day.difference(set_days_food)
