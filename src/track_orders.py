@@ -34,7 +34,13 @@ class TrackOrders:
         return days_never_requested
 
     def get_busiest_day(self):
-        pass
+        count_days = {}
+        for row in self.orders:
+            if row[2] in count_days:
+                count_days[row[2]] += 1
+            else:
+                count_days[row[2]] = 1
+        return max(count_days, key=count_days.get)
 
     def get_least_busy_day(self):
         pass
