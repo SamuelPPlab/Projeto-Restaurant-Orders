@@ -34,16 +34,12 @@ class TrackOrders:
         return days_never_requested
 
     def get_busiest_day(self):
-        count_days = {}
-        for row in self.orders:
-            if row[2] in count_days:
-                count_days[row[2]] += 1
-            else:
-                count_days[row[2]] = 1
+        count_days = self.get_days_and_quantity()
         return max(count_days, key=count_days.get)
 
     def get_least_busy_day(self):
-        pass
+        count_days = self.get_days_and_quantity()
+        return min(count_days, key=count_days.get)
 
     def food_requested(self, costumer):
         food_requested = {}
@@ -78,3 +74,12 @@ class TrackOrders:
                 else:
                     days_requested[row[2]] = 1
         return days_requested
+
+    def get_days_and_quantity(self):
+        count_days = {}
+        for row in self.orders:
+            if row[2] in count_days:
+                count_days[row[2]] += 1
+            else:
+                count_days[row[2]] = 1
+        return count_days
