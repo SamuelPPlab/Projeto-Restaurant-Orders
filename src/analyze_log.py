@@ -14,7 +14,7 @@ def csv_reader(path):
 
 
 # Função para obter comida mais pedida
-# Utilizando o vídeo "Resumo + Encontrar o nuúmero mais frequente num array" 
+# Utilizando o vídeo "Resumo + Encontrar o nuúmero mais frequente num array"
 # do bloco 37 - Hashmap e Dict
 
 
