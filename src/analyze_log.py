@@ -31,7 +31,7 @@ def analyze_log(path_to_file):
             dict[order[0]]["foods"][order[1]] += 1
         dict[order[0]]["dayList"][order[2]] += 1
         days.add(order[2])
-        if(order[0] == 'joao'):
+        if order[0] == "joao":
             daysJoao.add(order[2])
 
     bestFoodMaria = max(dict["maria"]["foods"], key=dict["maria"]["foods"].get)
