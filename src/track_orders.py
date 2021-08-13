@@ -46,10 +46,24 @@ class TrackOrders:
         pass
 
     def get_never_ordered_per_costumer(self, costumer):
-        pass
+        pedidos = self.organize_pedidos(self.pedidos)
+        pratos = ['coxinha', 'misto-quente', 'pizza', 'hamburguer']
+        nunca_comeu = set()
+        for prato in pratos:
+            if prato not in pedidos[costumer]['comida']:
+                nunca_comeu.add(prato)
+
+        return nunca_comeu
 
     def get_days_never_visited_per_costumer(self, costumer):
-        pass
+        pedidos = self.organize_pedidos(self.pedidos)
+        dias = ['segunda-feira', 'sabado', 'terça-feira']
+        nunca_visitou = set()
+        for day in dias:
+            if day not in pedidos[costumer]['dia']:
+                nunca_visitou.add(day)
+
+        return nunca_visitou
 
     def get_busiest_day(self):
         pass
