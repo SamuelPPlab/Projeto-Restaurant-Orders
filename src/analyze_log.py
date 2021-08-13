@@ -14,39 +14,39 @@ def read_file(filename):
 
 
 def most_ordered(results, client):
-    products_by_client = list((
+    products_by_client = list(
         item["product"] for item in results
         if item["client"] == client
-    ))
+    )
     most_ordered_product = Counter(products_by_client).most_common()[0][0]
     return most_ordered_product
 
 
 def count_order_by_client(results, client, product):
-    products_by_client = list((
+    products_by_client = list(
         item["product"] for item in results
         if item["client"] == client and item["product"] == product
-    ))
+    )
     count_product = products_by_client.count(product)
     return count_product
 
 
 def unordered_products_by_client(results, client):
-    products = set((item["product"] for item in results))
-    products_by_client = set((
+    products = set(item["product"] for item in results)
+    products_by_client = set(
         item["product"] for item in results
         if item["client"] == client
-    ))
+    )
     unordered_products = products.difference(products_by_client)
     return unordered_products
 
 
 def not_visited_days_by_client(results, client):
-    days = set((item["day"] for item in results))
-    visited_days_by_client = set((
+    days = set(item["day"] for item in results)
+    visited_days_by_client = set(
         item["day"] for item in results
         if item["client"] == client
-    ))
+    )
     days_not_visited = days.difference(visited_days_by_client)
     return days_not_visited
 
