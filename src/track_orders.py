@@ -7,6 +7,7 @@ class TrackOrders:
                 "quarta-feira": 0,
                 "quinta-feira": 0,
                 "sexta-feira": 0,
+                "sabado": 0,
                 "sábado": 0,
                 "domingo": 0,
             }
@@ -19,35 +20,24 @@ class TrackOrders:
     def add_new_order(self, costumer, order, day):
         if costumer not in self.data:
             self.data[costumer] = {
-                "foods": {
-                    "hamburguer": 0,
-                    "pizza": 0,
-                    "coxinha": 0,
-                    "misto-quente": 0,
-                    "frango": 0,
-                },
-                "dayList": {
-                    "segunda-feira": 0,
-                    "terça-feira": 0,
-                    "quarta-feira": 0,
-                    "quinta-feira": 0,
-                    "sexta-feira": 0,
-                    "sábado": 0,
-                    "domingo": 0,
-                },
+                "foods": {},
+                "dayList": {},
             }
         if order not in self.data[costumer]["foods"]:
             self.data[costumer]["foods"][order] = 1
         else:
             self.data[costumer]["foods"][order] += 1
-        self.data[costumer]["dayList"][day] += 1
+        if day not in self.data[costumer]["dayList"]:
+            self.data[costumer]["dayList"][order] = 1
+        else:
+            self.data[costumer]["dayList"][order] += 1
         self.data["allDays"][day] += 1
         self.allOrders.append(order)
 
     def get_most_ordered_dish_per_costumer(self, costumer):
         return max(
-            self.data["costumer"]["foods"],
-            key=self.data["costumer"]["foods"].get,
+            self.data[costumer]["foods"],
+            key=self.data[costumer]["foods"].get,
         )
 
     def get_never_ordered_per_costumer(self, costumer):
