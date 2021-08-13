@@ -16,10 +16,32 @@ class InventoryControl:
     }
 
     def __init__(self):
-        pass
+        self.storage = self.MINIMUM_INVENTORY.copy()
 
-    def add_new_order(self, costumer, order, day):
-        pass
+    def add_new_order(self, _costumer, order, _day):
+        ingredients_list = self.INGREDIENTS[order]
+        for ingredient in ingredients_list:
+            if self.storage[ingredient] > 0:
+                self.storage[ingredient] -= 1
+            else:
+                return False
 
     def get_quantities_to_buy(self):
-        pass
+        quantities_to_buy = dict()
+        for item in self.storage:
+            balance = self.MINIMUM_INVENTORY[item] - self.storage[item]
+            quantities_to_buy[item] = balance
+        return quantities_to_buy
+
+    def get_available_dishes(self):
+        available_dishes = set()
+        for product in self.INGREDIENTS:
+            ingredients = self.INGREDIENTS[product]
+            flag = True
+            for ingredient in ingredients:
+                if self.storage[ingredient] < 1:
+                    flag = False
+                    break
+            if flag:
+                available_dishes.add(product)
+        return available_dishes
