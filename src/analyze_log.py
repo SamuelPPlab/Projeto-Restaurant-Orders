@@ -32,6 +32,7 @@ def comida_maria(comidas):
         mais_frequente = comida
 
     return mais_frequente
+    # referência: vídeo da Valéria no conteúdo 37.3
 
 
 def joao_nunca_comeu(pratos, comida):
