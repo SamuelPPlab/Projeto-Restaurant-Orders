@@ -16,7 +16,9 @@ class InventoryControl:
     }
 
     def __init__(self):
-        self.__inventory = self.MINIMUM_INVENTORY
+        self.__quantities_to_buy = {
+            key: 0 for key in self.MINIMUM_INVENTORY.keys()
+        }
         self.__ingredients = {
             key: set(ingredients)
             for key, ingredients in self.INGREDIENTS.items()
@@ -24,7 +26,10 @@ class InventoryControl:
 
     def add_new_order(self, costumer, order, day):
         for ingredient in self.__ingredients[order]:
-            self.__inventory[ingredient] -= 1
+            if ingredient in self.__quantities_to_buy:
+                self.__quantities_to_buy[ingredient] += 1
+            else:
+                self.__quantities_to_buy[ingredient] = 1
 
     def get_quantities_to_buy(self):
-        return self.__inventory
+        return self.__quantities_to_buy
