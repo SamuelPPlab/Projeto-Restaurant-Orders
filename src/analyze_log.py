@@ -33,11 +33,24 @@ def get_howmany_customer_has_ordered(customer_name, order, orders_list):
     return order_count
 
 
+def get_dish_type(orders_list):
+    dishes_type = {order["order"] for order in orders_list}
+    return dishes_type
+
+
+# src: https://www.w3schools.com/python/ref_set_symmetric_difference.asp
+def get_never_ordered(customer_name, orders_list):
+    dishes_type = get_dish_type(orders_list)
+    customer_orders = get_customer_orders(customer_name, orders_list)
+    never_ordered = dishes_type.symmetric_difference(customer_orders)
+    return never_ordered
+
 def analyze_log(path_to_file):
     orders_data = open_csv(path_to_file)
     customer_maria_data = get_most_ordered_by_customer("maria", orders_data)
     customer_arnaldo_data = get_howmany_customer_has_ordered(
         "arnaldo", "hamburguer", orders_data
     )
-    print(customer_arnaldo_data)
+    customer_joao_data_dish = get_never_ordered("joao", orders_data)
+    print(customer_joao_data_dish)
     return customer_arnaldo_data
