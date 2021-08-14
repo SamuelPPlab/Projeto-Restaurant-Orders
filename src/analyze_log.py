@@ -52,7 +52,8 @@ def times_requests(orders, name, item):
 def never_asked(orders, name, list_of, term):
     products = set()
     set_list = set(list_of)
-    list(map(lambda order: products.add(order[term]), orders[name]))
+    for order in orders[name]:
+        products.add(order[term])
 
     return set_list.difference(products)
 
