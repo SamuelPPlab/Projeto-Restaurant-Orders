@@ -43,19 +43,7 @@ class TrackOrders:
         }
         return self.__opening_days.difference(client_went_to_the_restaurant)
 
-    @property
-    def customers_per_day(self):
-        days_for_quantities = dict()
-        for client in self.__orders_by_costumer:
-            for _, day in client:
-                if day in days_for_quantities:
-                    days_for_quantities[day] += 1
-                else:
-                    days_for_quantities[day] = 1
-        return days_for_quantities
-
     def get_busiest_day(self):
-        # return max(self.customers_per_day)
         days_for_quantities = dict()
         busiest_day = None
         for client in self.__orders_by_costumer.values():
@@ -74,7 +62,6 @@ class TrackOrders:
         return busiest_day
 
     def get_least_busy_day(self):
-        # return min(self.customers_per_day)
         days_for_quantities = dict()
         least_busy_day = None
         for client in self.__orders_by_costumer.values():
