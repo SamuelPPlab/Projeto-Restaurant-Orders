@@ -1,34 +1,6 @@
 from src.file_handler_pack.CsvHandler import CsvHandler
-from typing import Callable
-
-
-def most_request_food(client_requests: list[tuple]):
-    most_repeated_foods = dict()
-    most_repeated = None
-
-    for food, _ in client_requests:
-        if food in most_repeated_foods:
-            most_repeated_foods[food] += 1
-        else:
-            most_repeated_foods[food] = 1
-
-        if (
-            not most_repeated
-            or most_repeated_foods[most_repeated] < most_repeated_foods[food]
-        ):
-            most_repeated = food
-
-    return most_repeated
-
-
-def count(callback: Callable[[set], bool], items: list):
-    count_value = 0
-
-    for item in items:
-        if callback(item):
-            count_value += 1
-
-    return count_value
+from src.utils.most_request_food import most_request_food
+from src.utils.best_counter import count
 
 
 def analyze_log(path_to_file):
