@@ -1,89 +1,71 @@
 import csv
-import os
-import sys
 
 
-def most_requests_maria(orders):
-    orders = {
-        order["pedido"]: orders.count(order)
-        for order in orders
-        if order["cliente"] == "maria"
-    }
-    return max(orders, key=orders.get)
+def main(read_orders):
+    orders = {}
+    products = set()
+    days = set()
+
+    for name, item, day in read_orders:
+        products.add(item)
+        days.add(day)
+        if name not in orders:
+            orders[name] = [{"product": item, "days": day}]
+        else:
+            orders[name].append({"product": item, "days": day})
+
+    return orders, products, days
 
 
-def path_and_format(file_name, file_ext):
-    if not os.path.exists(file_name):
-        print(f"Arquivo {file_name} não econtrado")
-        return True
-    if not file_name.endswith(file_ext):
-        print("Formato inválido")
-        return True
-    return False
+def read_csv(path):
+    with open(path, "r") as file:
+        read_orders = csv.reader(file, delimiter=",", quotechar='"')
+        orders = main(read_orders)
+    return orders
 
 
-def most_food_arnaldo(orders):
-    return [
-        orders.count(order)
-        for order in orders
-        if order["pedido"] == "misto-quente" and order["cliente"] == "arnaldo"
-    ][0]
+def more_requests(orders, name):
+    count_object = {}
+    most_frequent_product = orders[name][0]["product"]
+    for order in orders[name]:
+        if (
+            count_object[order["product"]]
+            > count_object[most_frequent_product]
+        ):
+            most_frequent_product = order["product"]
+        elif order["product"] not in count_object:
+            count_object[order["product"]] = 1
+        else:
+            count_object[order["product"]] += 1
+
+    return most_frequent_product
 
 
-def never_requested_joao(orders):
-    products = set([order["pedido"] for order in orders])
-    joao_orders_products = set(
-        [order["pedido"] for order in orders if order["cliente"] == "joao"]
-    )
-    return products.difference(joao_orders_products)
+def times_requests(orders, name, item):
+    count = 0
+    for order in orders[name]:
+        if order["product"] == item:
+            count += 1
+    return count
 
 
-def never_visited_joao(orders):
-    days = set([order["dia"] for order in orders])
-    joao_orders = set(
-        [order["dia"] for order in orders if order["cliente"] == "joao"]
-    )
-    return days.difference(joao_orders)
+def never_asked(orders, name, list_of, term):
+    products = set()
+    set_list = set(list_of)
+    list(map(lambda order: products.add(order[term]), orders[name]))
+
+    return set_list.difference(products)
 
 
-def import_csv(file):
-    if path_and_format(file, ".csv"):
-        return True
-    objetct_data = ""
-    objetct_res = {}
-    with open(file) as file:
-        objetct_data = csv.reader(file, delimiter=",")
-        for values in objetct_data:
-            if values[0] not in objetct_res:
-                objetct_res[values[0]] = {
-                    "Foods": [],
-                    "Days": [],
-                }
-            objetct_res[values[0]]["Foods"].append(values[1])
-            objetct_res[values[0]]["Days"].append(values[2])
-    return objetct_res
+def analyze_log(path_to_file):
+    orders, products, days = read_csv(path_to_file)
+    maria_requests = more_requests(orders, "maria")
+    arnaldo_requests = times_requests(orders, "arnaldo", "hamburguer")
+    joao_never_request = never_asked(orders, "joao", products, "product")
+    joao_never_visited = never_asked(orders, "joao", days, "days")
 
-
-def analyse_log(file):
-    orders_list = []
-    try:
-        with open(file, newline="") as file:
-            fields_title = ["cliente", "pedido", "dia"]
-            reader = csv.DictReader(file, fieldnames=fields_title)
-            for row in reader:
-                orders_list.append(row)
-    except FileNotFoundError:
-        print(f"Arquivo {file} não encontrado", file=sys.stderr)
-    else:
-        order_by_maria = most_requests_maria(orders_list)
-        frequency_by_arnaldo = str(most_food_arnaldo(orders_list))
-        never_ordered_by_joao = never_requested_joao(orders_list)
-        visited_by_joao = never_visited_joao(orders_list)
-        with open("mkt_campaign.txt", "w") as file:
-            lines = [
-                f"{order_by_maria}\n",
-                f"{frequency_by_arnaldo}\n",
-                f"{never_ordered_by_joao}\n",
-                f"{visited_by_joao}\n",
-            ]
-            file.writelines(lines)
+    file = open("data/mkt_campaign.txt", "w")
+    file.write(f"{maria_requests}\n")
+    file.write(f"{arnaldo_requests}\n")
+    file.write(f"{joao_never_request}\n")
+    file.write(f"{joao_never_visited}")
