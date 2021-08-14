@@ -1,6 +1,7 @@
 
 from collections import Counter
 
+
 class TrackOrders:
     def __init__(self):
         self.orders = []
@@ -53,8 +54,20 @@ class TrackOrders:
         never_visited = days.symmetric_difference(customer_orders)
         return never_visited
 
+    def get_list_days(self):
+        days = []
+        for order in self.orders:
+            days.append(order["day"])
+        return days
+
     def get_busiest_day(self):
-        pass
+        days = self.get_list_days()
+        days_data = Counter(days)
+        busiest_day = max(days_data, key=days_data.get)
+        return busiest_day
 
     def get_least_busy_day(self):
-        pass
+        days = self.get_list_days()
+        days_data = Counter(days)
+        least_busy = min(days_data, key=days_data.get)
+        return least_busy

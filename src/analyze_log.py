@@ -23,7 +23,7 @@ def get_customer_orders(customer_name, orders_list):
 
 def get_most_ordered_by_customer(customer_name, orders_list):
     counter = get_customer_orders(customer_name, orders_list)
-    most_frequent = counter.most_common(1)[0][0]
+    most_frequent = max(counter, key=counter.get)
     print(most_frequent)
     return most_frequent
 
