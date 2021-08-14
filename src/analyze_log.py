@@ -1,72 +1,74 @@
 import csv
 
 
-def main(read_orders):
-    orders = {}
-    products = set()
+def more_requests_maria(data_orders):
+    orders = []
+    maxi = set()
+    for item in data_orders:
+        if item[0] == "maria":
+            orders.append(item[1])
+    for order in orders:
+        maxi.add((orders.count(order), order))
+        maxi_plus = dict(maxi)
+    return maxi_plus[max(maxi_plus)]
+
+
+def more_requests_arnaldo(data_orders):
+    orders = []
+    for item in data_orders:
+        if item[0] == "arnaldo":
+            orders.append(item[1])
+    return orders.count("hamburguer")
+
+
+def more_requests_never_asked_joao(data_orders):
+    orders = set()
+    ordered = set()
+    for item in data_orders:
+        if item[0] == "joao":
+            ordered.add(item[1])
+        else:
+            orders.add(item[1])
+    return orders - ordered
+
+
+def joao_visited(data_days):
     days = set()
-
-    for name, item, day in read_orders:
-        products.add(item)
-        days.add(day)
-        if name not in orders:
-            orders[name] = [{"product": item, "days": day}]
+    joao_days = set()
+    for item in data_days:
+        if item[0] == "joao":
+            joao_days.add(item[2])
         else:
-            orders[name].append({"product": item, "days": day})
-
-    return orders, products, days
-
-
-def read_csv(path):
-    with open(path, "r") as file:
-        read_orders = csv.reader(file, delimiter=",", quotechar='"')
-        orders = main(read_orders)
-    return orders
+            days.add(item[2])
+    return days - joao_days
 
 
-def more_requests(orders, name):
-    count_object = {}
-    most_frequent_product = orders[name][0]["product"]
-    for order in orders[name]:
-        if (
-            count_object[order["product"]]
-            > count_object[most_frequent_product]
-        ):
-            most_frequent_product = order["product"]
-        elif order["product"] not in count_object:
-            count_object[order["product"]] = 1
-        else:
-            count_object[order["product"]] += 1
-
-    return most_frequent_product
+def import_data(path):
+    try:
+        list_data = []
+        with open(path) as file:
+            reader = csv.reader(file, delimiter="\n")
+            for item in reader:
+                refact = item[0].split(",")
+                list_data.append(refact)
+            return list_data
+    except FileNotFoundError:
+        raise FileNotFoundError(f"No such file or directory: '{path}'")
 
 
-def times_requests(orders, name, item):
-    count = 0
-    for order in orders[name]:
-        if order["product"] == item:
-            count += 1
-    return count
+def analyze_log(path):
+    if not path.endswith(".csv"):
+        raise FileNotFoundError(f"No such file or directory: '{path}'")
 
+    data = import_data(path)
+    maria_requests = more_requests_maria(data)
+    arnaldo_requests = more_requests_arnaldo(data)
+    joao_requests = more_requests_never_asked_joao(data)
+    visited = joao_visited(data)
 
-def never_asked(orders, name, list_of, term):
-    products = set()
-    set_list = set(list_of)
-    for order in orders[name]:
-        products.add(order[term])
-
-    return set_list.difference(products)
-
-
-def analyze_log(path_to_file):
-    orders, products, days = read_csv(path_to_file)
-    maria_requests = more_requests(orders, "maria")
-    arnaldo_requests = times_requests(orders, "arnaldo", "hamburguer")
-    joao_never_request = never_asked(orders, "joao", products, "product")
-    joao_never_visited = never_asked(orders, "joao", days, "days")
-
-    file = open("data/mkt_campaign.txt", "w")
-    file.write(f"{maria_requests}\n")
-    file.write(f"{arnaldo_requests}\n")
-    file.write(f"{joao_never_request}\n")
-    file.write(f"{joao_never_visited}")
+    txt = open("data/mkt_campaign.txt", "w")
+    txt.write(
+        f"{maria_requests}\n{arnaldo_requests}\n{joao_requests}\n{visited}"
+    )
+    txt.close()
+    return True
