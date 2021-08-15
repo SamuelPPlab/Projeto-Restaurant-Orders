@@ -36,13 +36,15 @@ def analyze_log(path_to_file):
 def read_file(path):
     # Ref: Luíse Rios
     with open(path, 'r') as restaurant_data:
-        data = csv.reader(restaurant_data, delimiter=',', quotechar='"')
-        orders_data = dict()
+        data = csv.reader(restaurant_data, delimiter=',')
+        orders_list = []
         for item in data:
+            orders_data = dict()
             orders_data["name"] = item[0]
             orders_data["order"] = item[1]
             orders_data["day_in_week"] = item[2]
-        return list(orders_data)
+            orders_list.append(orders_data)
+        return orders_list
 
 
 def write_in_file(path, answers):
