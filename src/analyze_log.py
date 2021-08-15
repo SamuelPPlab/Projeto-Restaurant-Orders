@@ -17,7 +17,7 @@ def analyze_log(path_to_file):
 
     maria_often_orders = most_common_order_by_client(orders, "maria")
 
-    arnaldo_ordered_buger = arnaldo_ordered_hamburger(orders)
+    arnaldo_ordered_buger = food_by_client(orders, "arnaldo", "hamburguer")
 
     joao_never_ordered = client_never_ordered(orders, "joao")
 
@@ -62,6 +62,10 @@ def order_options(orders):
     return set([order["order"] for order in orders])
 
 
+def all_clients(orders):
+    return set([order["name"] for order in orders])
+
+
 def order_counter(orders, client):
     all_orders = dict()
     for order in orders_by_client(orders, client):
@@ -79,10 +83,10 @@ def most_common_order_by_client(orders, client):
     return max(inverse)[1]
 
 
-def arnaldo_ordered_hamburger(orders):
+def food_by_client(orders, client, food):
     ordered_hamburger_counter = 0
     for order in orders:
-        if order["order"] == "hamburguer" and order["name"] == "arnaldo":
+        if order["order"] == food and order["name"] == client:
             ordered_hamburger_counter += 1
     return ordered_hamburger_counter
 
@@ -100,9 +104,42 @@ def work_days(orders):
     return restaurant_work_days
 
 
-def client_didnt_show_up(orders, client):
-    restaurant_work_days = work_days(orders)
+def client_showed_up(orders, client):
     client_showed_up = set(
         day["day_in_week"] for day in orders if day["name"] == client
     )
-    return restaurant_work_days.difference(client_showed_up)
+    return client_showed_up
+
+
+def client_didnt_show_up(orders, client):
+    restaurant_work_days = work_days(orders)
+    client_went_to_restaurant = client_showed_up(orders, client)
+    return restaurant_work_days.difference(client_went_to_restaurant)
+
+
+def busiest_day(orders):
+    visits = dict()
+    day_ = False
+    for day in orders:
+        if day["day_in_week"] in visits:
+            visits[day["day_in_week"]] += 1
+        else:
+            visits[day["day_in_week"]] = 1
+
+        if not day_ or visits[day["day_in_week"]] > visits[day_]:
+            day_ = day["day_in_week"]
+    return day_
+
+
+def least_busy_day(orders):
+    visits = dict()
+    day_ = False
+    for day in orders:
+        if day["day_in_week"] in visits:
+            visits[day["day_in_week"]] += 1
+        else:
+            visits[day["day_in_week"]] = 1
+
+        if not day_ or visits[day["day_in_week"]] < visits[day_]:
+            day_ = day["day_in_week"]
+    return day_
