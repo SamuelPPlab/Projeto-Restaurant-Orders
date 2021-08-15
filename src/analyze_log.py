@@ -43,6 +43,7 @@ def most_requested_dishes(name_client, wish_list):
     most_requested_dishes = count.most_common(1)[0][0]
     return most_requested_dishes
 
+
 def ordered_not_dishes(name_client, list_request):
     every_dish = {request["dishes"] for request in list_request}
     ordered_dishes = {
@@ -52,6 +53,7 @@ def ordered_not_dishes(name_client, list_request):
     }
     ordered_not_dishes = every_dish.symmetric_difference(ordered_dishes)
     return ordered_not_dishes
+
 
 def analyze_log(path_to_file):
     if path_to_file.endswith(".csv"):
