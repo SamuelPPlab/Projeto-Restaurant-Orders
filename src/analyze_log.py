@@ -32,12 +32,12 @@ def most_request_food(client_requests):
 
 def client_fav_dish(path_to_file, name):
     list_data = read_file_csv(path_to_file)
-    maria_orders = []
+    client_orders = []
     for line in list_data:
         if line["name"] == name:
-            maria_orders.append(line["order"])
-    # print(maria_orders)
-    return most_request_food(maria_orders)
+            client_orders.append(line["order"])
+    # print(client_orders)
+    return most_request_food(client_orders)
 
 
 def order_quantity(path_to_file, name, order):
