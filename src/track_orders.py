@@ -2,7 +2,11 @@ from collections import Counter
 
 
 class TrackOrders:
-    def list_by_costumer(list_clients, costumer):
+
+    def __init__(self):
+        self.order_list = list()
+
+    def list_by_costumer(self, list_clients, costumer):
         list_costumer = []
         for item in list_clients:
             if costumer in item:
@@ -22,14 +26,14 @@ class TrackOrders:
     """
 
     def get_most_ordered_dish_per_costumer(self, costumer):
-        list_costumer = TrackOrders.list_by_costumer(self.order_list, costumer)
+        list_costumer = self.list_by_costumer(self.order_list, costumer)
         return Counter(list_costumer).most_common(1)[0][0]
 
     def get_never_ordered_per_costumer(self, costumer):
         all_orders = []
         for item in self.order_list:
             all_orders.append(item[1])
-        list_costumer = TrackOrders.list_by_costumer(self.order_list, costumer)
+        list_costumer = self.list_by_costumer(self.order_list, costumer)
 
         return all_orders.difference(list_costumer)
 
