@@ -19,4 +19,3 @@ class TrackOrders:
 
     def get_least_busy_day(self):
         pass
-
