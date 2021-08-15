@@ -3,30 +3,26 @@ from collections import Counter
 
 
 def most_requested_dish(orders, person):
-    person_orders = list(map(lambda order: order[1], filter(
-        lambda name: name[0] == person, orders)))
-    return (Counter(person_orders).most_common(1))[0][0]
+    o_list = [order[1] for order in orders if order[0] == person]
+    return (Counter(o_list).most_common(1))[0][0]
 
 
 def how_many_times_was_requested(orders, person, dish):
-    person_orders = list(filter(
+    o_list = list(filter(
         lambda name: name[0] == person and name[1] == dish, orders))
-    print(len(person_orders))
-    return len(person_orders)
+    return len(o_list)
 
 
 def never_requested_dishes(orders, person):
-    dishes = set([order[1] for order in orders])
-    person_orders = set(list(map(lambda order: order[1], filter(
-        lambda name: name[0] == person, orders))))
-    return dishes.difference(person_orders)
+    dishes = [order[1] for order in orders]
+    o_list = [order[1] for order in orders if order[0] == person]
+    return (set(dishes)).difference(set(o_list))
 
 
 def never_attended_days(orders, person):
-    days = set([order[2] for order in orders])
-    person_orders = set(list(map(lambda order: order[2], filter(
-        lambda name: name[0] == person, orders))))
-    return days.difference(person_orders)
+    days = [order[2] for order in orders]
+    o_list = [order[2] for order in orders if order[0] == person]
+    return (set(days)).difference(set(o_list))
 
 
 def analyze_log(path_to_file):
