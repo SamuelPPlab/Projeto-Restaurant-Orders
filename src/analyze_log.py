@@ -119,7 +119,7 @@ def what_days_client_never_went_to_the_cafeteria(file, name_client):
 
 
 def analyze_log(path_to_file):
-    # raise NotImplementedError
+    raise NotImplementedError
     file = get_file_csv(path_to_file)
 
     food = get_most_requested_dish_by_name(file, "maria")
@@ -135,6 +135,3 @@ def analyze_log(path_to_file):
 
     days = what_days_client_never_went_to_the_cafeteria(file, "joao")
     save_text(days)
-
-
-analyze_log("data/orders_1.csv")
