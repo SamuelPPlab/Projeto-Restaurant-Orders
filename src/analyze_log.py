@@ -24,7 +24,7 @@ def __orders_resume(orders):
             orders_resume[name]['foods'][food] += 1
         if day not in orders_resume[name]['days']:
             orders_resume[name]['days'].append(day)
-    
+
     orders_resume = __add_foods_in_orders_resume(orders_resume, orders)
 
     return orders_resume
@@ -68,7 +68,15 @@ def analyze_log(path_to_file):
         clients = [item for item in get_clients]
 
     with open('data/mkt_campaign.txt', 'w') as file:
-        file.write(f'{more_requested_by_client(clients, "maria")}\n')
-        file.write(f'{count_eat_by_client(clients, "hamburguer", "arnaldo")}\n')
-        file.write(f'{never_order_by_client(clients, "joao")}\n')
-        file.write(f'{days_not_present_client(clients, "joao")}')
+        file.write(
+            f'{more_requested_by_client(clients, "maria")}\n'
+        )
+        file.write(
+            f'{count_eat_by_client(clients, "hamburguer", "arnaldo")}\n'
+        )
+        file.write(
+            f'{never_order_by_client(clients, "joao")}\n'
+        )
+        file.write(
+            f'{days_not_present_client(clients, "joao")}'
+        )
