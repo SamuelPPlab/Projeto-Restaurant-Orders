@@ -55,6 +55,6 @@ def analyze_log(path_to_file):
         orders = list(csv.reader(csv_file, delimiter=","))
     with open("data/mkt_campaign.txt", "w") as log_file:
         log_file.write(f"{handle_favorite('maria', orders)}\n")
-        log_file.write(f"{handle_most_asked('arnaldo', 'hamburguer', orders)}\n")
-        log_file.write(f"{handle_less_asked('joao', orders)}\n")
-        log_file.write(f"{handle_not_show_up_day('joao', orders)}\n")
+        log_file.write(f"{handle_most_asked('arnaldo','hamburguer',orders)}\n")
+        log_file.write(f"{handle_less_asked('joao',orders)}\n")
+        log_file.write(f"{handle_not_show_up_day('joao',orders)}\n")
