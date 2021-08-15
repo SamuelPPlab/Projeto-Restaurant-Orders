@@ -1,3 +1,6 @@
+from collections import Counter
+
+
 class TrackOrders:
     def __init__(self):
         self.orders = []
@@ -32,11 +35,26 @@ class TrackOrders:
                 dishes_asked_by_client.add(food)
         return dishes.difference(dishes_asked_by_client)
 
-    def get_days_never_visited_per_costumer(self, costumer):
-        pass
+    def get_days_never_visited_per_costumer(self, customer):
+        days_show_up = set()
+        week = set()
+        for (name, _, day) in self.orders:
+            week.add(day)
+            if name == customer:
+                days_show_up.add(day)
+        return week.difference(days_show_up)
 
+# https://www.geeksforgeeks.org/python-find-most-frequent-element-in-a-list/
     def get_busiest_day(self):
-        pass
+        days = []
+        for item in self.orders:
+            days.append(item[2])
+        busiest = Counter(days)
+        return busiest.most_common()[0][0]
 
     def get_least_busy_day(self):
-        pass
+        days = []
+        for item in self.orders:
+            days.append(item[2])
+        least_busy = Counter(days)
+        return least_busy.most_common()[-1][0]
