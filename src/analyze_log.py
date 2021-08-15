@@ -59,7 +59,7 @@ def customer_history(data_orders, client_name):
 def analyze_log(path_to_file):
     with open(path_to_file, mode="r") as res:
         orders = list(csv.DictReader(res, fieldnames=["name", "order", "day"]))
-
+    return orders
     h_customer_maria = customer_history(orders, 'maria')
     most_req_maria = count_frequency_order_by_name(h_customer_maria)
 
