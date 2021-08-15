@@ -50,12 +50,14 @@ def analyze_log(path_to_file):
     try:
         with open(path_to_file, mode="r") as file_csv:
             orders = [row for row in csv.reader(file_csv)]
+
             maria_eats_log = maria_eats(orders, "maria")
             arnaldo_ask_hamburguer_log = arnaldo_ask_hamburguer(
                 orders, "arnaldo"
             )
             joao_never_ask_log = joao_never_ask(orders, "joao")
             joao_never_went_log = joao_never_went(orders, "joao")
+
     except ValueError:
         raise FileNotFoundError(f"No such file or directory: {path_to_file}")
 
