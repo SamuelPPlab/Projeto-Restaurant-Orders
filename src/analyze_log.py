@@ -53,13 +53,6 @@ def analyze_log(path_to_file):
         orders = list(csv.reader(csv_file, delimiter=","))
     with open("data/mkt_campaign.txt", "w") as log_file:
         log_file.write(f"{favorite('maria', orders)}\n")
-        log_file.write(f"{many_times_asked('arnaldo', 'hamburguer', orders)}\n")
+        log_file.write(f"{many_times_asked('arnaldo','hamburguer',orders)}\n")
         log_file.write(f"{never_asked('joao', orders)}\n")
         log_file.write(f"{never_go_day('joao', orders)}\n")
-    
-    
-    
-    
-
-
-analyze_log("data/orders_1.csv")
