@@ -28,18 +28,22 @@ def maria_eats(orders, user):
 
 def joao_never_ask(orders, user):
     foods = set()
-    days = set()
     count_foods = set()
-    count_days = set()
     for a, b, c in orders:
         if a == user:
             count_foods.add(b)
-            count_days.add(c)
         foods.add(b)
+    return foods.symmetric_difference(count_foods)
+
+
+def joao_never_went(orders, user):
+    days = set()
+    count_days = set()
+    for a, b, c in orders:
+        if a == user:
+            count_days.add(c)
         days.add(c)
-    return_foods = foods.symmetric_difference(count_foods)
-    return_days = days.symmetric_difference(count_days)
-    return return_foods, return_days
+    return days.symmetric_difference(count_days)
 
 
 def analyze_log(path_to_file):
@@ -51,6 +55,7 @@ def analyze_log(path_to_file):
                 orders, "arnaldo"
             )
             joao_never_ask_log = joao_never_ask(orders, "joao")
+            joao_never_went_log = joao_never_went(orders, "joao")
     except ValueError:
         raise FileNotFoundError(f"No such file or directory: {path_to_file}")
 
@@ -58,6 +63,7 @@ def analyze_log(path_to_file):
         file_txt.write(f"{str(maria_eats_log)}\n")
         file_txt.write(f"{str(arnaldo_ask_hamburguer_log)}\n")
         file_txt.write(f"{str(joao_never_ask_log)}\n")
+        file_txt.write(f"{str(joao_never_went_log)}\n")
 
 
 if __name__ == "__main__":
