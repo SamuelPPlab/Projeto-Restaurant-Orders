@@ -1,10 +1,10 @@
 class TrackOrders:
     def __init__(self):
         self.orders = []
-    
+
     def __len__(self):
         return len(self.orders)
-    
+
     def resume_orders_food_customer(self, customer):
         resume_orders_food = {}
         foods = [order[1] for order in self.orders if order[0] == customer]
