@@ -2,7 +2,6 @@ from collections import Counter
 
 
 class TrackOrders:
-
     def __init__(self):
         self.order_list = list()
 
@@ -31,6 +30,7 @@ class TrackOrders:
     referência: https://stackoverflow.com/questions/3594514/
     how-to-find-most-common-elements-of-a-list/44481414
     """
+
     def get_most_ordered_dish_per_costumer(self, costumer):
         list_costumer = self.list_by_costumer(costumer)
         list_order_costumer = []
@@ -39,13 +39,15 @@ class TrackOrders:
 
         return Counter(list_order_costumer).most_common(1)[0][0]
 
-    def get_never_ordered_per_costumer(self, costumer):
+    def get_all_days(self):
         all_orders = []
         for item in self.order_list:
             all_orders.append(item[1])
-        list_costumer = self.list_by_costumer(costumer)
+        return all_orders
 
-        return all_orders.difference(list_costumer)
+    def get_never_ordered_per_costumer(self, costumer):
+        list_costumer = self.list_by_costumer(costumer)
+        return self.get_all_days().difference(list_costumer)
 
     def get_days_never_visited_per_costumer(self, costumer):
         list_costumer = self.list_by_costumer(costumer)
@@ -53,7 +55,7 @@ class TrackOrders:
         return list_costumer.difference(days)
 
     def get_busiest_day(self):
-        pass
+        return Counter(self.order_list).most_common()[0][0]
 
     def get_least_busy_day(self):
-        pass
+        return Counter(self.get_all_days()).most_common()[-1][0]
