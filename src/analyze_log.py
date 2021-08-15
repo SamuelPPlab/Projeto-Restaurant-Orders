@@ -1,39 +1,41 @@
 import csv
 
 
-def __orders_resume(orders):
-    orders_resume = {}
+def __add_foods_in_orders_resume(orders_resume, orders):
     foods = [order[1] for order in orders]
-    days = [order[2] for order in orders]
-
-    for order in orders:
-        name, food, day = order
-        if name not in orders_resume:
-            orders_resume[name] = {'foods': {}, 'days': []}
-            
-        if food not in orders_resume[name]['foods']:
-            orders_resume[name]['foods'][food] = 1
-        else:
-            orders_resume[name]['foods'][food] += 1
-            
-        if day not in orders_resume[name]['days']:
-            orders_resume[name]['days'].append(day)
-            
     for order in orders:
         name, food, day = order
         for food in foods:
             if food not in orders_resume[name]['foods']:
                 orders_resume[name]['foods'][food] = 0
+    return orders_resume
+
+
+def __orders_resume(orders):
+    orders_resume = {}
+
+    for order in orders:
+        name, food, day = order
+        if name not in orders_resume:
+            orders_resume[name] = {'foods': {}, 'days': []}
+        if food not in orders_resume[name]['foods']:
+            orders_resume[name]['foods'][food] = 1
+        else:
+            orders_resume[name]['foods'][food] += 1
+        if day not in orders_resume[name]['days']:
+            orders_resume[name]['days'].append(day)
+    
+    orders_resume = __add_foods_in_orders_resume(orders_resume, orders)
 
     return orders_resume
 
 
 def more_requested_by_client(orders, client_name):
     orders_resume = __orders_resume(orders)[client_name]['foods']
-
-    orders_resume = dict(sorted(orders_resume.items(), key=lambda x: x[1], reverse=True))
+    orders_resume = dict(
+        sorted(orders_resume.items(), key=lambda x: x[1], reverse=True)
+    )
     key_orders = [key for key, value in orders_resume.items()]
-    
     return key_orders[0]
 
 
@@ -47,22 +49,20 @@ def count_eat_by_client(orders, eat_name, client_name):
 
 def never_order_by_client(orders, client_name):
     orders_resume = __orders_resume(orders)[client_name]['foods']
-
-    key_orders = [key for key, value in orders_resume.items() if value == 0]
-   
+    key_orders = [
+        key for key, value in orders_resume.items() if value == 0
+    ]
     return set(key_orders)
 
 
 def days_not_present_client(orders, client_name):
     days = ['segunda-feira', 'terça-feira', 'sabado']
     orders_resume_days = __orders_resume(orders)[client_name]['days']
-    
     never_days = [day for day in days if day not in orders_resume_days]
-
     return set(never_days)
 
 
-def analyze_log(path_to_file):    
+def analyze_log(path_to_file):
     with open(path_to_file, 'r') as file:
         get_clients = csv.reader(file, delimiter=",")
         clients = [item for item in get_clients]
