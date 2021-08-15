@@ -6,9 +6,9 @@ class TrackOrders:
     def __init__(self):
         self.order_list = list()
 
-    def list_by_costumer(self, list_clients, costumer):
+    def list_by_costumer(self, costumer):
         list_costumer = []
-        for item in list_clients:
+        for item in self.order_list:
             if costumer in item:
                 list_costumer.append(item)
         return list_costumer
@@ -24,16 +24,19 @@ class TrackOrders:
     referência: https://stackoverflow.com/questions/3594514/
     how-to-find-most-common-elements-of-a-list/44481414
     """
-
     def get_most_ordered_dish_per_costumer(self, costumer):
-        list_costumer = self.list_by_costumer(self.order_list, costumer)
-        return Counter(list_costumer).most_common(1)[0][0]
+        list_costumer = self.list_by_costumer(costumer)
+        list_order_costumer = []
+        for item in list_costumer:
+            list_order_costumer.append(item[1])
+
+        return Counter(list_order_costumer).most_common(1)[0][0]
 
     def get_never_ordered_per_costumer(self, costumer):
         all_orders = []
         for item in self.order_list:
             all_orders.append(item[1])
-        list_costumer = self.list_by_costumer(self.order_list, costumer)
+        list_costumer = self.list_by_costumer(costumer)
 
         return all_orders.difference(list_costumer)
 
