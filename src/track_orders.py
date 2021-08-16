@@ -46,15 +46,15 @@ class TrackOrders:
 
     def get_days_by_customer(self, list_costumer):
         days_customer = []
-        for item in self.order_list:
+        for item in list_costumer:
             days_customer.append(item[2])
-        return set(days_customer)
+        return days_customer
 
     def get_order_by_customer(self, list_costumer):
         orders_customer = []
-        for item in self.order_list:
+        for item in list_costumer:
             orders_customer.append(item[1])
-        return set(orders_customer)
+        return orders_customer
 
     def get_never_ordered_per_costumer(self, costumer):
         list_costumer = self.list_by_costumer(costumer)
