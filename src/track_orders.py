@@ -42,10 +42,25 @@ class TrackOrders:
         return days.symmetric_difference(count_days)
 
     def get_busiest_day(self):
-        pass
+        count = {}
+        most_frequent = 0
+        day = ""
+        for row in self.orders:
+            if row[2] not in count:
+                count[row[2]] = 1
+            else:
+                count[row[2]] += 1
+            if count[row[2]] > most_frequent:
+                most_frequent = count[row[2]]
+                day = row[2]
+        return day
 
     def get_least_busy_day(self):
-        pass
-
-    def get_dish_quantity_per_costumer(self, user, food):
-        pass
+        count = {}
+        for row in self.orders:
+            if row[2] not in count:
+                count[row[2]] = 1
+            else:
+                count[row[2]] += 1
+        min_day = min(count, key=count.get)
+        return min_day
