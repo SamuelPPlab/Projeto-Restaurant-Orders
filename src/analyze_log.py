@@ -3,6 +3,23 @@ import csv
 HAMBURGUER = 'hamburguer'
 GRAVAR_AQUI = "data/mkt_campaign.txt"
 
+
+def get_ordered_days(orders_file):
+    all_days = []
+    for order in orders_file:
+        if order['day'] not in all_days:
+            all_days.append(order['day'])
+    return all_days
+
+
+def get_ordered_dishes(orders_file):
+    all_dishes = []
+    for order in orders_file:
+        if(order['dish'] not in all_dishes):
+            all_dishes.append(order['dish'])
+    return all_dishes
+
+
 def work_this_csv(path_to_file):
     with open(path_to_file) as this_file:
         keys = ["person", "dish", "day"]
@@ -37,14 +54,12 @@ def os_burge_do_arnaldo(orders_file):
 
 
 def o_que_o_fresco_do_joao_nao_come(ordes_file):
-    all_dishes  = []
+    all_dishes = get_ordered_dishes(ordes_file)
     joaos_dishes = []
     joaos_no_go = []
     for order in ordes_file:
         if order['person'] == 'joao' and order['dish'] not in joaos_dishes:
             joaos_dishes.append(order['dish'])
-        if(order['dish'] not in all_dishes):
-            all_dishes.append(order['dish'])
     for dish in all_dishes:
         if dish not in joaos_dishes:
             joaos_no_go.append(dish)
@@ -52,13 +67,11 @@ def o_que_o_fresco_do_joao_nao_come(ordes_file):
 
 
 def esses_dias_o_joao_nao(orders_file):
-    all_days= []
+    all_days = get_ordered_days(orders_file)
     joao_days = []
     for order in orders_file:
         if order['person'] == 'joao' and order['day'] not in joao_days:
             joao_days.append(order['day'])
-        if order['day'] not in all_days:
-            all_days.append(order['day'])
     nao_joao = []
     for day in all_days:
         if day not in joao_days:
@@ -75,10 +88,10 @@ def analyze_log(path_to_file):
     o_jao_nao = esses_dias_o_joao_nao(orders)
 
     output = [
-    f"{favorite_dish}\n",
-    f"{arnaldos_burguers_count}\n",
-    f"{arnaldos_no_go}\n",
-    f"{o_jao_nao}\n",
+        f"{favorite_dish}\n",
+        f"{arnaldos_burguers_count}\n",
+        f"{arnaldos_no_go}\n",
+        f"{o_jao_nao}\n",
     ]
     with open(GRAVAR_AQUI, "w") as here:
         here.writelines(output)
