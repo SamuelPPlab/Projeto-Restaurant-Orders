@@ -1,5 +1,4 @@
 import csv
-from typing import OrderedDict
 
 
 def open_file(path):
@@ -60,15 +59,15 @@ def days_never_attended_by_client(file, client):
 
 def analyze_log(path_to_file):
     data = open_file(path_to_file)
-    maria_dish_most_frequent = consult_most_frequent_order_by_client(
+    maria = consult_most_frequent_order_by_client(
         data, 'maria')
-    arnaldo_hamburguer_amount = order_quantity_by_client(
+    arnaldo = order_quantity_by_client(
         data,  'arnaldo', 'hamburguer')
     joao_never_order = never_order_by_client(data, 'joao')
     joao_never_atended = days_never_attended_by_client(data, 'joao')
 
     write_file(
-        f'{maria_dish_most_frequent}\n{arnaldo_hamburguer_amount}\n{joao_never_order}\n{joao_never_atended}')
+        f'{maria}\n{arnaldo}\n{joao_never_order}\n{joao_never_atended}')
 
 
 # analyze_log('data/orders_1.csv')
