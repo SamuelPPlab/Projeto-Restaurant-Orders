@@ -12,36 +12,63 @@ def open_file(path):
     return result
 
 
-# def analyze_log(path_to_file):
-#     seen_before = set()
-#     repeated = set()
-#     data = open_file(path_to_file)
-#     for line in data:
-#         if line in seen_before:
-#             repeated.add(line)
-#         else:
-#             seen_before.add(line)
-#     print(seen_before)
-#     print('\n\n\n')
-#     print(repeated)
+def write_file(LINES):
+    with open('data/mkt_campaign.txt', mode='w') as file:
+        file.writelines(LINES)
+
+
+def consult_most_frequent_order_by_client(file, client):
+    result = dict((x, file.count(x)) for x in set(file) if client in x)
+    dish = ''
+    most_frequent = 0
+    for k, v in result.items():
+        if v > most_frequent:
+            most_frequent = v
+            dish = k
+    return dish[1]
+
+
+def order_quantity_by_client(file, client, dish):
+    file_client = dict((x, file.count(x)) for x in set(file) if client in x)
+    for key, value in file_client.items():
+        if dish in key:
+            return value
+
+
+def never_order_by_client(file, client):
+    dishes = set()
+    dishes_client = set()
+
+    for value in file:
+        dishes.add(value[1])
+        if value[0] == client:
+            dishes_client.add(value[1])
+    return dishes.difference(dishes_client)
+
+
+def days_never_attended_by_client(file, client):
+    days = set()
+    days_client = set()
+
+    for value in file:
+        days.add(value[2])
+        if value[0] == client:
+            days_client.add(value[2])
+
+    return days.difference(days_client)
+
 
 def analyze_log(path_to_file):
-
     data = open_file(path_to_file)
-    maria = dict((x, data.count(x)) for x in set(data) if 'maria' in x)
-    count = {}
-    most_frequent = 1
-    result = set()
-    for line in data:
-        if line not in count:
-            count[line] = 1
-        else:
-            count[line] += 1
-        if count[line] > most_frequent:
-            most_frequent = count[line]
-            result.add(line)
-    return list(list(result)[0])[1]
+    maria_dish_most_frequent = consult_most_frequent_order_by_client(
+        data, 'maria')
+    arnaldo_hamburguer_amount = order_quantity_by_client(
+        data,  'arnaldo', 'hamburguer')
+    joao_never_order = never_order_by_client(data, 'joao')
+    joao_never_atended = days_never_attended_by_client(data, 'joao')
+
+    write_file(
+        f'{maria_dish_most_frequent}\n{arnaldo_hamburguer_amount}\n{joao_never_order}\n{joao_never_atended}')
 
 
-result = analyze_log('data/orders_1.csv')
-print(result)
+# analyze_log('data/orders_1.csv')
