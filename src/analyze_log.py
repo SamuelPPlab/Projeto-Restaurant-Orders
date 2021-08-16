@@ -15,8 +15,8 @@ def analyze_log(path_to_file):
         for item in data:
             if item[0] == "maria":
                 maria.append(item[1])
-            if item[0] == "arnaldo" and item[1] == "hamburger":
-                hamburgers_arnaldo = hamburgers_arnaldo + 1
+            if item[0] == "arnaldo" and item[1] == "hamburguer":
+                hamburgers_arnaldo += 1
             if item[0] == "joao":
                 pratos_joao_pediu.add(item[1])
                 dias_joao_foi.add(item[2])
@@ -35,4 +35,3 @@ def analyze_log(path_to_file):
             f"{pratos_joao_nao_pediu}\n"
             f"{dias_joao_nunca_foi}"
         )
-        print(hamburgers_arnaldo)
