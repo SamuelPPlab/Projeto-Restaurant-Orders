@@ -1,21 +1,58 @@
+import collections
+
+
 class TrackOrders:
     def __len__(self):
-        pass
+        return len(self.orders)
+
+    def __init__(self):
+        self.orders = []
 
     def add_new_order(self, costumer, order, day):
-        pass
+        return self.orders.append(
+            {"name": costumer, "order": order, "day": day}
+        )
 
     def get_most_ordered_dish_per_costumer(self, costumer):
-        pass
+        list = []
+
+        for row in self.orders:
+            if row["name"] == costumer:
+                list.append(row["order"])
+        return collections.Counter(list).most_common(1)[0][0]
 
     def get_never_ordered_per_costumer(self, costumer):
-        pass
+        list_all_dishes = set()
+        costumer_dishes = set()
+
+        for row in self.orders:
+            if row["name"] == costumer:
+                costumer_dishes.add(row["order"])
+            list_all_dishes.add(row["order"])
+        return list_all_dishes.difference(costumer_dishes)
 
     def get_days_never_visited_per_costumer(self, costumer):
-        pass
+        days = set()
+        costumer_frequency = set()
+
+        for row in self.orders:
+            if row["name"] == costumer:
+                costumer_frequency.add(row["day"])
+            days.add(row["day"])
+        return days.difference(costumer_frequency)
 
     def get_busiest_day(self):
-        pass
+        days = []
+
+        for row in self.orders:
+            days.append(row["day"])
+
+        return collections.Counter(days).most_common(1)[0][0]
 
     def get_least_busy_day(self):
-        pass
+        days = []
+
+        for row in self.orders:
+            days.append(row["day"])
+
+        return collections.Counter(days).most_common()[-1][0]
