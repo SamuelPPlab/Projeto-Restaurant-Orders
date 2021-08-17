@@ -32,18 +32,28 @@ class TrackOrders:
         count = {}
         most_frequent = 0
         busiest_day = ''
-        for _, food, day in self.track_orders:
-            if food not in count:
-                count[food] = 1
+        for _, day, day in self.track_orders:
+            if day not in count:
+                count[day] = 1
             else:
-                count[food] += 1
-            if count[food] > most_frequent:
-                most_frequent = count[food]
+                count[day] += 1
+            if count[day] > most_frequent:
+                most_frequent = count[day]
                 busiest_day = day
         return busiest_day
 
     def get_least_busy_day(self):
-        pass
+        count = {}
+
+        for _, food, day in self.track_orders:
+            if day not in count:
+                count[day] = 1
+            else:
+                count[day] += 1
+
+        result = list(count)
+        result.reverse()
+        return result[0]
 
 
 if __name__ == "__main__":
@@ -57,4 +67,4 @@ if __name__ == "__main__":
     client.add_new_order("arnaldo", "peixe", "sábado")
     client.add_new_order("maria", "carne", "terça-feira")
     client.add_new_order("joao", "salada", "segunda-feira")
-    print(client.get_busiest_day())
+    print(client.get_least_busy_day())
