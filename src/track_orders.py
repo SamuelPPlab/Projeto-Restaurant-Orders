@@ -29,7 +29,18 @@ class TrackOrders:
         return days_never_attended_by_client(self.track_orders, costumer)
 
     def get_busiest_day(self):
-        pass
+        count = {}
+        most_frequent = 0
+        busiest_day = ''
+        for _, food, day in self.track_orders:
+            if food not in count:
+                count[food] = 1
+            else:
+                count[food] += 1
+            if count[food] > most_frequent:
+                most_frequent = count[food]
+                busiest_day = day
+        return busiest_day
 
     def get_least_busy_day(self):
         pass
@@ -37,7 +48,13 @@ class TrackOrders:
 
 if __name__ == "__main__":
     client = TrackOrders()
-    client.add_new_order('renato', 'pizza', 'segunda')
-    print(len(client))
-    client.get_most_ordered_dish_per_costumer('maria')
-    client.get_never_ordered_per_costumer("joao")
+    # client.add_new_order('renato', 'pizza', 'segunda')
+    # print(len(client))
+    # client.get_most_ordered_dish_per_costumer('maria')
+    # client.get_never_ordered_per_costumer("joao")
+    client.add_new_order("jorge", "frango", "domingo")
+    client.add_new_order("jorge", "frango", "domingo")
+    client.add_new_order("arnaldo", "peixe", "sábado")
+    client.add_new_order("maria", "carne", "terça-feira")
+    client.add_new_order("joao", "salada", "segunda-feira")
+    print(client.get_busiest_day())
