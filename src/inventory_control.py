@@ -19,29 +19,39 @@ class InventoryControl:
         self.track_orders = []
 
     def add_new_order(self, costumer, order, day):
+        used_ingredients = self.get_quantities_to_buy()
+        ingredients = list(self.INGREDIENTS[order])
+
+        for item in list(ingredients):
+            used_ingredients[item] += 1
+
+        for key, value in used_ingredients.items():
+            if (self.MINIMUM_INVENTORY[key] - value) < 0:
+                return False
+
         self.track_orders.append(list((costumer, order, day)))
 
+        return True
+
     def get_quantities_to_buy(self):
-        used_ingredients = {
-            'pao': 0,
-            'carne': 0,
-            'queijo': 0,
-            'molho': 0,
-            'presunto': 0,
-            'massa': 0,
-            'frango': 0, }
+        ingredients = {x for _, value in self.INGREDIENTS.items()
+                       for x in value}
+        used_ingredients = {key: 0 for key in ingredients}
         for _, order, _ in self.track_orders:
             for ingredient in self.INGREDIENTS[order]:
                 used_ingredients[ingredient] += 1
+
         return used_ingredients
 
 
-if __name__ == "__main__":
-    ingredients = InventoryControl()
-    count = 1
-    while count <= 50:
-        ingredients.add_new_order("jorge", "hamburguer", "terça-feira")
-        count += 1
-
-    hamburguer = ingredients.get_quantities_to_buy()
-    print(hamburguer)
+# if __name__ == "__main__":
+#     ingredients = InventoryControl()
+#     count = 1
+#     while count <= 50:
+#         ingredients.add_new_order("jorge", "hamburguer", "terça-feira")
+#         count += 1
+#     ingredients.add_new_order("jorge", "hamburguer", "terça-feira")
+#     # ingredients.add_new_order("jorge", "hamburguer", "terça-feira")
+#     # ingredients.add_new_order("jorge", "hamburguer", "terça-feira")
+#     hamburguer = ingredients.get_quantities_to_buy()
+#     # print(hamburguer)
