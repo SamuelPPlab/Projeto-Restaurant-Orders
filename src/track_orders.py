@@ -39,12 +39,16 @@ class TrackOrders:
             if i['a'] == costumer:
                 consumo.add(i['b'])
             pratos.add(i['b'])
-        # print('pratos', pratos)
-        # print('consumo', consumo)
         return pratos - consumo
 
     def get_days_never_visited_per_costumer(self, costumer):
-        pass
+        dia_consumo = set()
+        dias_atuacao = set()
+        for i in self.orders:
+            if i['a'] == costumer:
+                dia_consumo.add(i['c'])
+            dias_atuacao.add(i['c'])
+        return dias_atuacao - dia_consumo
 
     def get_busiest_day(self):
         pass
