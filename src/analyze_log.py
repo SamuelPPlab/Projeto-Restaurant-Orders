@@ -68,6 +68,3 @@ def analyze_log(path_to_file):
 
     write_file(
         f'{maria}\n{arnaldo}\n{joao_never_order}\n{joao_never_atended}')
-
-
-# analyze_log('data/orders_1.csv')

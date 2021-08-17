@@ -32,5 +32,18 @@ class InventoryControl:
             'frango': 0, }
         for _, order, _ in self.track_orders:
             for ingredient in self.INGREDIENTS[order]:
+                if used_ingredients[ingredient] > self.MINIMUM_INVENTORY[ingredient]:
+                    return False
                 used_ingredients[ingredient] += 1
         return used_ingredients
+
+
+if __name__ == "__main__":
+    ingredients = InventoryControl()
+    count = 1
+    while count <= 50:
+        ingredients.add_new_order("jorge", "hamburguer", "terça-feira")
+        count += 1
+
+    hamburguer = ingredients.get_quantities_to_buy()
+    print(hamburguer)
