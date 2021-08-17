@@ -23,10 +23,25 @@ class TrackOrders:
         return sorted_pedidos[0][0]
 
     def get_dish_quantity_per_costumer(self, costumer, order):
-        pass
+        consumo_cliente = {}
+        for i in self.orders:
+            if i['a'] == costumer and i['b'] == order:
+                if i['b'] not in consumo_cliente:
+                    consumo_cliente[i['b']] = 1
+                else:
+                    consumo_cliente[i['b']] += 1
+        return list(consumo_cliente.items())[0][1]
 
     def get_never_ordered_per_costumer(self, costumer):
-        pass
+        consumo = set()
+        pratos = set()
+        for i in self.orders:
+            if i['a'] == costumer:
+                consumo.add(i['b'])
+            pratos.add(i['b'])
+        # print('pratos', pratos)
+        # print('consumo', consumo)
+        return pratos - consumo
 
     def get_days_never_visited_per_costumer(self, costumer):
         pass
