@@ -30,10 +30,9 @@ class InventoryControl:
         all_dishes = {k for k, v in self.INGREDIENTS.items()}
 
         for key, value in current_inventory.items():
-            if value == 0:
-                for k, v in self.INGREDIENTS.items():
-                    if key in v:
-                        removed_dishes.add(k)
+            for k, v in self.INGREDIENTS.items():
+                if value == 0 and key in v:
+                    removed_dishes.add(k)
 
         new_menu = all_dishes.difference(removed_dishes)
 
