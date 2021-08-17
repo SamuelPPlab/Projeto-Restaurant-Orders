@@ -1,5 +1,6 @@
 from src.analyze_log import open_file, consult_most_frequent_order_by_client
-from src.analyze_log import never_order_by_client, days_never_attended_by_client
+from src.analyze_log import never_order_by_client
+from src.analyze_log import days_never_attended_by_client
 
 
 class TrackOrders:
