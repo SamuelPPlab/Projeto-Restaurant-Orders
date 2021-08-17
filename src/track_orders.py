@@ -51,7 +51,16 @@ class TrackOrders:
         return dias_atuacao - dia_consumo
 
     def get_busiest_day(self):
-        pass
+        consumo_semana = {}
+        for i in self.orders:
+            if i['c'] not in consumo_semana:
+                consumo_semana[i['c']] = 1
+            else:
+                consumo_semana[i['c']] += 1
+        print(consumo_semana)
+        sorted_dias_de_consumo = sorted(
+                consumo_semana.items(), key=lambda kv: kv[1], reverse=True)
+        return sorted_dias_de_consumo[0][0]
 
     def get_least_busy_day(self):
         pass
