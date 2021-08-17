@@ -73,4 +73,3 @@ class TrackOrders:
         sorted_dias_de_consumo = sorted(
                 consumo_semana.items(), key=lambda kv: kv[1])
         return sorted_dias_de_consumo[0][0]
-
