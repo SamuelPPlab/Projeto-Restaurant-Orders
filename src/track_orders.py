@@ -1,3 +1,5 @@
+from collections import Counter
+
 class TrackOrders:
     def __init__(self):
         self.orders = []
@@ -6,12 +8,20 @@ class TrackOrders:
         return len(self.orders)
 
     def add_new_order(self, costumer, order, day):
-        request = set()
-        request.add((costumer, order, day))
-        return self.orders.append(request)
+        return self.orders.append({'a':costumer, 'b':order, 'c':day})
 
     def get_most_ordered_dish_per_costumer(self, costumer):
-        pass
+        mais_pedido = {}
+        for i in self.orders:
+            if i['a'] == costumer:
+                if i['b'] not in mais_pedido:
+                    mais_pedido[i['b']] = 1
+                else:
+                    mais_pedido[i['b']] += 1
+        sorted_pedidos = sorted(
+                mais_pedido.items(), key=lambda kv: kv[1], reverse=True)
+        return sorted_pedidos[0][0]
+
     
     def get_dish_quantity_per_costumer(self, costumer, order):
         pass
