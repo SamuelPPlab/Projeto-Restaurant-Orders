@@ -32,8 +32,6 @@ class InventoryControl:
             'frango': 0, }
         for _, order, _ in self.track_orders:
             for ingredient in self.INGREDIENTS[order]:
-                if used_ingredients[ingredient] > self.MINIMUM_INVENTORY[ingredient]:
-                    return False
                 used_ingredients[ingredient] += 1
         return used_ingredients
 
