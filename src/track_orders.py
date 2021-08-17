@@ -1,5 +1,6 @@
 import csv
 from src.analyze_log import open_file, consult_most_frequent_order_by_client
+from src.analyze_log import never_order_by_client
 
 
 class TrackOrders:
@@ -12,11 +13,7 @@ class TrackOrders:
         return len(self.track_orders)
 
     def add_new_order(self, costumer, order, day):
-        with open(self.path, "a") as file:
-            writer = csv.writer(file)
-            row = list((costumer, order, day))
-            writer.writerow(row)
-            self.track_orders.append(row)
+        self.track_orders.append(list((costumer, order, day)))
 
     def get_most_ordered_dish_per_costumer(self, costumer):
         data = open_file(self.path)
@@ -26,7 +23,9 @@ class TrackOrders:
         pass
 
     def get_never_ordered_per_costumer(self, costumer):
-        pass
+        result = never_order_by_client(self.track_orders, costumer)
+        print(result)
+        return result
 
     def get_days_never_visited_per_costumer(self, costumer):
         pass
@@ -43,3 +42,4 @@ if __name__ == "__main__":
     client.add_new_order('renato', 'pizza', 'segunda')
     print(len(client))
     client.get_most_ordered_dish_per_costumer('maria')
+    client.get_never_ordered_per_costumer("joao")
