@@ -25,7 +25,16 @@ class InventoryControl:
         self.inventory.append(self.MINIMUM_INVENTORY)
 
     def add_new_order(self, costumer, order, day):
-        return self.orders.append({'a': costumer, 'b': order, 'c': day})
+        self.orders.append({'a': costumer, 'b': order, 'c': day})
+        list_comprar = []
+        qtde_comprar = self.get_quantities_to_buy()
+        for k, v in qtde_comprar.items():
+            list_comprar.append((k, v))
+        qtde_minima = self.inventory
+        for k, v in qtde_minima[0].items():
+            for i in list_comprar:
+                if i[0] == k and i[1] < v:
+                    return False
 
     # def inf_orders(self):
     #     for i in self.orders:
