@@ -98,3 +98,9 @@ class InventoryControl:
                         if value2 not in ingredientes:
                             ingredientes[value2] = 0
         return ingredientes
+    
+    def get_available_dishes(self):
+        conj = set()
+        for i in self.ingredients:
+            conj.add((i[0]))
+        return conj
