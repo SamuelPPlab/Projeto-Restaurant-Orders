@@ -91,6 +91,8 @@ class InventoryControl:
                     for value in list(index[1]):
                         if value not in ingredientes:
                             ingredientes[value] = v
+                        else:
+                            ingredientes[value] += v
                 else:
                     for value2 in list(index[1]):
                         if value2 not in ingredientes:
