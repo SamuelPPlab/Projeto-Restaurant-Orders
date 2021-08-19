@@ -60,20 +60,19 @@ class InventoryControl:
                 dict[i['b']] += 1
         return dict
 
+    def inserir_0_nao_consumo(self, index, ingredientes):
+        for value2 in list(index[1]):
+            if value2 not in ingredientes:
+                ingredientes[value2] = 0
+
     def get_quantities_to_buy(self):
         ingredientes = {}
         for index in self.ingredients:
             for k, v in self.pedidos().items():
                 if k == index[0]:
-                    for value in list(index[1]):
-                        if value not in ingredientes:
-                            ingredientes[value] = v
-                        else:
-                            ingredientes[value] += v
+                    self.alimenta_dic_c_ingredientes(index, v, ingredientes)
                 else:
-                    for value2 in list(index[1]):
-                        if value2 not in ingredientes:
-                            ingredientes[value2] = 0
+                    self.inserir_0_nao_consumo(index, ingredientes)
         return ingredientes
 
     def ingredientes_faltando(self):
