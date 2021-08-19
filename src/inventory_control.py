@@ -36,16 +36,19 @@ class InventoryControl:
                 if i[0] == k and i[1] < v:
                     return False
 
+    def alimenta_dic_c_ingredientes(self, index, v, dict):
+        for i in index[1]:
+            if i not in dict:
+                dict[i] = v
+            else:
+                dict[i] += v
+
     def consumo_de_ingredientes(self):
         dict = {}
         for index in self.ingredients:
             for k, v in self.pedidos().items():
                 if k == index[0]:
-                    for i in index[1]:
-                        if i not in dict:
-                            dict[i] = v
-                        else:
-                            dict[i] += v
+                    self.alimenta_dic_c_ingredientes(index, v, dict)
         return dict
 
     def pedidos(self):
