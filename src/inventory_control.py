@@ -1,3 +1,6 @@
+from collections import Counter
+
+
 class InventoryControl:
     INGREDIENTS = {
         'hamburguer': ['pao', 'carne', 'queijo'],
@@ -16,10 +19,16 @@ class InventoryControl:
     }
 
     def __init__(self):
-        pass
+        self.inventory = self.MINIMUM_INVENTORY
+        self.ingredients = self.INGREDIENTS
 
     def add_new_order(self, costumer, order, day):
-        pass
+        for ingredient in self.ingredients[order]:
+            if self.inventory[ingredient] > 0:
+                self.inventory[ingredient] -= 1
+            else:
+                return False
 
     def get_quantities_to_buy(self):
-        pass
+        quantity_to_buy = Counter(self.MINIMUM_INVENTORY)
+        print(quantity_to_buy)
