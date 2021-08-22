@@ -60,10 +60,10 @@ def analyze_log(path_to_file):
     for order in file_obj:
         orders_list.append(order)
 
-    maria_most_ordered = get_most_ordered("maria", file_obj)
-    arnaldo_hamburguer_count = count_meal("arnaldo", "hamburguer", file_obj)
-    joao_never_order = never_ordered("joao", file_obj)
-    joao_never_going = never_going("joao", file_obj)
+    maria_most_ordered = get_most_ordered("maria", orders_list)
+    arnaldo_hamburguer_count = count_meal("arnaldo", "hamburguer", orders_list)
+    joao_never_order = never_ordered("joao", orders_list)
+    joao_never_going = never_going("joao", orders_list)
     file = "data/mkt_campaign.txt"
     text = [
         f"{maria_most_ordered}\n",
