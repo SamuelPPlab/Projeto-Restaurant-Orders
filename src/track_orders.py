@@ -1,4 +1,6 @@
 from collections import Counter
+
+
 class TrackOrders:
     def __init__(self):
         self.array = []
@@ -7,7 +9,7 @@ class TrackOrders:
         return len(self.array)
 
     def add_new_order(self, costumer, order, day):
-        self.array.append({ 'client': costumer, 'order': order, 'day': day })
+        self.array.append({'client': costumer, 'order': order, 'day': day})
 
     def get_most_ordered_dish_per_costumer(self, costumer):
         orders = []
