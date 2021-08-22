@@ -52,7 +52,7 @@ def analyze_log(path_to_file):
                 f"{orders_never_ordered('joao', array)}\n",
                 f"{days_never_gone('joao', array)}",
             ]
-        with open("data/mkt_campaign.txt", 'w') as file:
+        with open('data/mkt_campaign.txt', 'w') as file:
             file.writelines(result_array)
     else:
-        raise FileNotFoundError()
+        raise FileNotFoundError(f"No such file or directory: '{path_to_file}'")
