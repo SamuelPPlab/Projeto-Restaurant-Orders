@@ -32,7 +32,9 @@ class InventoryControl:
         return self.quantity_to_buy
 
     def ingredient_available(self, ingredient):
-        return self.MINIMUM_INVENTORY[ingredient] - self.quantity_to_buy[ingredient] <= 0
+        a = self.MINIMUM_INVENTORY[ingredient]
+        b = self.quantity_to_buy[ingredient]
+        return a - b <= 0
 
     def get_available_dishes(self):
         available = []
