@@ -3,36 +3,36 @@ from collections import Counter
 
 
 def get_most_ordered(person_name, order_list):
-    customer_orders = list()
+    costomer_orders = list()
     for order in order_list:
         if order["name"] == person_name:
-            customer_orders.append(order["meal"])
-    orders_counted = Counter(customer_orders)
+            costomer_orders.append(order["meal"])
+    orders_counted = Counter(costomer_orders)
     # https://stackoverflow.com/questions/268272/getting-key-with-maximum-value-in-dictionary
     most_ordered = max(orders_counted, key=orders_counted.get)
     return most_ordered
 
 
 def count_meal(person_name, meal_name, order_list):
-    customer_orders = list()
+    costomer_orders = list()
     for order in order_list:
         if order["name"] == person_name:
-            customer_orders.append(order["meal"])
-    orders_counted = Counter(customer_orders)
+            costomer_orders.append(order["meal"])
+    orders_counted = Counter(costomer_orders)
     print(orders_counted)
     return orders_counted[meal_name]
 
 
 def never_ordered(person_name, order_list):
-    customer_orders = list()
+    costomer_orders = list()
     never_ordered_list = list()
     meal_options = ["coxinha", "hamburguer", "misto-quente", "pizza"]
 
     for order in order_list:
         if order["name"] == person_name:
-            customer_orders.append(order["meal"])
+            costomer_orders.append(order["meal"])
     for meal_option in meal_options:
-        if meal_option not in customer_orders:
+        if meal_option not in costomer_orders:
             never_ordered_list.append(meal_option)
 
     return set(never_ordered_list)
