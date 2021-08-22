@@ -31,12 +31,15 @@ class InventoryControl:
     def get_quantities_to_buy(self):
         return self.quantity_to_buy
 
+    def ingredient_available(self, ingredient):
+        return self.MINIMUM_INVENTORY[ingredient] - self.quantity_to_buy[ingredient] <= 0
+
     def get_available_dishes(self):
         available = []
         for key in self.INGREDIENTS.keys():
             available.append(key)
         for key, value in self.INGREDIENTS.items():
             for ingredient in value:
-                if self.MINIMUM_INVENTORY[ingredient] - self.quantity_to_buy[ingredient] <= 0 and key in available:
+                if self.ingredient_available(ingredient) and key in available:
                     available.remove(key)
         return set(available)
