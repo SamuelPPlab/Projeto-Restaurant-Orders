@@ -4,7 +4,6 @@ from collections import Counter
 class TrackOrders:
     def __init__(self):
         self.orders = list()
-        
 
     def __len__(self):
         return len(self.orders)
@@ -57,7 +56,6 @@ class TrackOrders:
         # https://stackoverflow.com/questions/268272/getting-key-with-maximum-value-in-dictionary
         busiest_day = max(days_relatory, key=days_relatory.get)
         return busiest_day
-
 
     def get_least_busy_day(self):
         days_orders = list()
