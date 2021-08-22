@@ -1,6 +1,5 @@
 import csv
 from collections import Counter
-import operator
 
 
 def get_most_ordered(person_name, order_list):
