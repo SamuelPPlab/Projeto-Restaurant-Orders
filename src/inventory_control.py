@@ -19,16 +19,17 @@ class InventoryControl:
     }
 
     def __init__(self):
-        self.inventory = self.MINIMUM_INVENTORY
-        self.ingredients = self.INGREDIENTS
+        self.inventory = self.MINIMUM_INVENTORY.copy()
 
     def add_new_order(self, costumer, order, day):
-        for ingredient in self.ingredients[order]:
+        for ingredient in self.INGREDIENTS[order]:
             if self.inventory[ingredient] > 0:
                 self.inventory[ingredient] -= 1
             else:
                 return False
 
     def get_quantities_to_buy(self):
-        quantity_to_buy = Counter(self.MINIMUM_INVENTORY)
-        print(quantity_to_buy)
+        quantity_to_buy = Counter(self.MINIMUM_INVENTORY.copy())
+        quantity_in_inventory = Counter(self.inventory)
+        quantity_to_buy.subtract(quantity_in_inventory)
+        return quantity_to_buy
