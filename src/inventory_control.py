@@ -28,6 +28,13 @@ class InventoryControl:
             'frango': 0,
         }
 
+        self.menu = {
+            'hamburguer': True,
+            'pizza': True,
+            'misto-quente': True,
+            'coxinha': True,
+        }
+
     def get_ingredients(self, order):
         return self.INGREDIENTS[order]
 
@@ -55,3 +62,11 @@ class InventoryControl:
 
     def get_quantities_to_buy(self):
         return self.ordered
+
+    def get_available_dishes(self):
+        items = self.menu.copy()
+        for item in items.keys():
+            ingredients = self.get_ingredients(item)
+            if not (self.verify_inventory(ingredients)):
+                self.menu.pop(item)
+        return self.menu.keys()
