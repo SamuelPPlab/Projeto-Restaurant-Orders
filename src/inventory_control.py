@@ -39,9 +39,7 @@ class InventoryControl:
         available_meals = []
         for ingredient in self.inventory:
             ingredients.append(ingredient)
-            if self.inventory[ingredient] <= 0:
-                return False
-            else:
+            if self.inventory[ingredient] > 0:
                 for meal in self.INGREDIENTS:
                     if set(self.INGREDIENTS[meal]).issubset(ingredients):
                         available_meals.append(meal)
