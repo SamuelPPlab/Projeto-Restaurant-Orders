@@ -33,3 +33,16 @@ class InventoryControl:
         quantity_in_inventory = Counter(self.inventory)
         quantity_to_buy.subtract(quantity_in_inventory)
         return quantity_to_buy
+
+    def get_available_dishes(self):
+        ingredients = []
+        available_meals = []
+        for ingredient in self.inventory:
+            ingredients.append(ingredient)
+            if self.inventory[ingredient] <= 0:
+                return False
+            else:
+                for meal in self.INGREDIENTS:
+                    if set(self.INGREDIENTS[meal]).issubset(ingredients):
+                        available_meals.append(meal)
+        return set(available_meals)
