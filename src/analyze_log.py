@@ -63,7 +63,8 @@ def organize_orders(file):
         joao_weekdays_count
     )
 
-    response = f"{maria_favorite_meal} \n{arnaldo_hamburger_orders_nbr} \n{set(joao_never_ordered)} \n{set(joao_weekdays_without_orders)}"
+    response = f"{maria_favorite_meal}\n{arnaldo_hamburger_orders_nbr}"\
+        f"\n{set(joao_never_ordered)}\n{set(joao_weekdays_without_orders)}"
 
     txt_file = open('data/mkt_campaign.txt', 'w')
     txt_file.writelines(response)
