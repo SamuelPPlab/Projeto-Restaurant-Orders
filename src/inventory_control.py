@@ -38,7 +38,7 @@ class InventoryControl:
             for item in self.recipes[order]:
                 if self.inventory[item] > 0:
                     self.inventory[item] -= 1
-        except(AssertionError):
+        except(KeyError):
             return False
 
     def get_quantities_to_buy(self):
