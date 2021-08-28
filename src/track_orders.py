@@ -1,4 +1,4 @@
-import src.analyze_log as func 
+import src.analyze_log as func
 
 
 class TrackOrders:
