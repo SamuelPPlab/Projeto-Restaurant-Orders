@@ -1,16 +1,6 @@
 import csv
 
 
-# def importDataCsv(file_name):
-#     if file_name.split('.')[1] != 'csv':
-#         raise ValueError('Arquivo inválido')
-
-#     with open(file_name) as file:
-#         data = csv.reader(file, delimiter=",")
-#         report_list = list(data)
-#     return report_list
-
-
 def favorite_plate(name, orders):
     plates_count = dict()
     max_order_plate = 0
@@ -35,6 +25,9 @@ def favorite_plate(name, orders):
 
 def plates_repeated(name, plate, orders):
     client_order = set()
+
+    # order[1] = plate ordered
+    # order[0] = client that make order
     for order in orders:
         if order[0] == name and order[1] == plate:
             client_order.add(order[1])
@@ -44,23 +37,29 @@ def plates_repeated(name, plate, orders):
 def plates_never_ordered(name, orders):
     order_client = set()
     all_orders = set()
+
+    # order[1] = plate ordered
+    # order[0] = client that make order
     for order in orders:
         all_orders.add(order[1])
-    for client in orders:
-        if client[0] == name:
-            order_client.add(client[1])
+    for order in orders:
+        if order[0] == name:
+            order_client.add(order[1])
     return all_orders.difference(order_client)
 
 
-def days_without_orders(name, days):
-    days_without_orders = set()
+def days_without_orders(name, orders):
+    days_with_orders = set()
     all_days = set()
-    for day in days:
-        all_days.add(day[2])
-    for day in days:
-        if day[0] == name:
-            days_without_orders.add(day[2])
-    return all_days.difference(days_without_orders)
+
+    # order[2] = day of order
+    # order[0] = client that make order
+    for order in orders:
+        all_days.add(order[2])
+    for order in orders:
+        if order[0] == name:
+            days_with_orders.add(order[2])
+    return all_days.difference(days_with_orders)
 
 
 def analyze_log(path_to_file):
