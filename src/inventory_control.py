@@ -16,15 +16,26 @@ class InventoryControl:
     }
 
     def __init__(self):
-        self.storage = self.MINIMUM_INVENTORY.copy()
+        self.inventory = self.MINIMUM_INVENTORY.copy()
 
     def add_new_order(self, _costumer, order, _day):
         for item in self.INGREDIENTS[order]:
-            self.storage[item] -= 1
+            self.inventory[item] -= 1
 
     def get_quantities_to_buy(self):
         quantities = dict()
-        for item in self.storage:
-            result = self.MINIMUM_INVENTORY[item] - self.storage[item]
+        for item in self.inventory:
+            result = self.MINIMUM_INVENTORY[item] - self.inventory[item]
             quantities[item] = result
         return quantities
+
+    def get_available_dishes(self):
+        available_ingredients = set(
+            ingredient for ingredient in self.inventory
+            if self.inventory[ingredient] > 0
+        )
+        return {
+            dish
+            for dish in self.INGREDIENTS
+            if set(self.INGREDIENTS[dish]).issubset(available_ingredients)
+        }
