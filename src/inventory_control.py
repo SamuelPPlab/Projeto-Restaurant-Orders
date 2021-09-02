@@ -1,10 +1,4 @@
 class InventoryControl:
-    INGREDIENTS = {
-        'hamburguer': ['pao', 'carne', 'queijo'],
-        'pizza': ['massa', 'queijo', 'molho'],
-        'misto-quente': ['pao', 'queijo', 'presunto'],
-        'coxinha': ['massa', 'frango'],
-    }
 
     def __init__(self):
         self.data = []
@@ -18,12 +12,19 @@ class InventoryControl:
             'massa': 50,
             'frango': 50,
         }
+        self.INGREDIENTS = {
+            'hamburguer': ['pao', 'carne', 'queijo'],
+            'pizza': ['massa', 'queijo', 'molho'],
+            'misto-quente': ['pao', 'queijo', 'presunto'],
+            'coxinha': ['massa', 'frango'],
+        }
 
     def inventory_tracker(self, pedido):
         ingredients = self.INGREDIENTS[pedido]
         for item in ingredients:
             if self.MINIMUM_INVENTORY[item] > 0:
                 self.MINIMUM_INVENTORY[item] -= 1
+                return True
             else:
                 return False
 
@@ -55,7 +56,7 @@ class InventoryControl:
 
     def add_new_order(self, costumer, order, day):
         ingredient_missing = self.inventory_tracker(order)
-        if ingredient_missing == False:
+        if not ingredient_missing:
             return False
         else:
             entry = {'cliente': costumer, 'pedido': order, 'dia': day}
@@ -63,10 +64,19 @@ class InventoryControl:
 
     def get_quantities_to_buy(self):
         total_of_orders = self.count_compiler()
-        print(f"teste {self.ingredients_per_item(total_of_orders)}")
         print(self.MINIMUM_INVENTORY)
         return self.ingredients_per_item(total_of_orders)
-    
+
+    def removes_item_from_available(self, item, is_available):
+        menu_and_ingredients = list(self.INGREDIENTS.items())
+        for ingredient in menu_and_ingredients:
+            if item in ingredient[1]:
+                try:
+                    is_available.remove(ingredient[0])
+                except ValueError:
+                    pass
+        return is_available
+
     def get_available_dishes(self):
         ingredients = list(self.MINIMUM_INVENTORY.keys())
         is_available = list(self.INGREDIENTS.keys())
@@ -75,12 +85,6 @@ class InventoryControl:
             quantity = self.MINIMUM_INVENTORY[ingredient]
             if quantity < 1:
                 out_of_stock.append(ingredient)
-        menu_and_ingredients = list(self.INGREDIENTS.items())
         for item in out_of_stock:
-            for ingredient in menu_and_ingredients:
-                if item in ingredient[1]:
-                    try:
-                        is_available.remove(ingredient[0])
-                    except ValueError:
-                        pass
+            is_available = self.removes_item_from_available(item, is_available)
         return set(is_available)
