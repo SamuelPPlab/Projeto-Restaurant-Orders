@@ -5,7 +5,7 @@ from track_orders import TrackOrders
 
 
 def print_info(tracker, control):
-    print(control.get_available_dishes('hamburguer'))
+    print(control.get_available_dishes())
 
 
 def main():
