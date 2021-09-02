@@ -5,19 +5,27 @@ class InventoryControl:
         'misto-quente': ['pao', 'queijo', 'presunto'],
         'coxinha': ['massa', 'frango'],
     }
-    MINIMUM_INVENTORY = {
-        'pao': 1,
-        'carne': 12,
-        'queijo': 100,
-        'molho': 50,
-        'presunto': 50,
-        'massa': 50,
-        'frango': 50,
-    }
 
     def __init__(self):
         self.data = []
         self.available_dishes = []
+        self.MINIMUM_INVENTORY = {
+            'pao': 50,
+            'carne': 50,
+            'queijo': 100,
+            'molho': 50,
+            'presunto': 50,
+            'massa': 50,
+            'frango': 50,
+        }
+
+    def inventory_tracker(self, pedido):
+        ingredients = self.INGREDIENTS[pedido]
+        for item in ingredients:
+            if self.MINIMUM_INVENTORY[item] > 0:
+                self.MINIMUM_INVENTORY[item] -= 1
+            else:
+                return False
 
     def order_counter(self, order):
         frequencia = 0
@@ -46,14 +54,17 @@ class InventoryControl:
         return(total_ingredients)
 
     def add_new_order(self, costumer, order, day):
-        menu = list(self.INGREDIENTS.keys())
-        if order not in menu:
+        ingredient_missing = self.inventory_tracker(order)
+        if ingredient_missing == False:
             return False
-        entry = {'cliente': costumer, 'pedido': order, 'dia': day}
-        self.data.append(entry)
+        else:
+            entry = {'cliente': costumer, 'pedido': order, 'dia': day}
+            self.data.append(entry)
 
     def get_quantities_to_buy(self):
         total_of_orders = self.count_compiler()
+        print(f"teste {self.ingredients_per_item(total_of_orders)}")
+        print(self.MINIMUM_INVENTORY)
         return self.ingredients_per_item(total_of_orders)
     
     def get_available_dishes(self):
@@ -68,5 +79,8 @@ class InventoryControl:
         for item in out_of_stock:
             for ingredient in menu_and_ingredients:
                 if item in ingredient[1]:
-                    is_available.remove(ingredient[0])
-        return is_available
+                    try:
+                        is_available.remove(ingredient[0])
+                    except ValueError:
+                        pass
+        return set(is_available)

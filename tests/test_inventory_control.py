@@ -15,6 +15,7 @@ def test_validar_atualizou_a_quantidade_em_estoque():
         "massa": 0,
         "frango": 0,
     }
+    print(f"hamburguer aqui caralho {hamburguer} ")
     assert hamburguer == total_ingredients
 
 
