@@ -5,12 +5,12 @@ from track_orders import TrackOrders
 
 
 def print_info(tracker, control):
-    print(control.get_quantities_to_buy())
+    print(control.get_available_dishes('hamburguer'))
 
 
 def main():
     topic = 'order'
-    path = "data/orders_1.csv"
+    path = "data/orders_2.csv"
 
     tracker = TrackOrders()
     control = InventoryControl()

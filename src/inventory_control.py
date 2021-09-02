@@ -1,4 +1,4 @@
-from os import path
+from os import initgroups, path
 
 
 class InventoryControl:
@@ -12,14 +12,15 @@ class InventoryControl:
             'coxinha': ['massa', 'frango'],
         }
         self.minimum_inventory = {
-            'pao': 50,
+            'pao': 1,
             'carne': 50,
-            'queijo': 100,
+            'queijo': 5,
             'molho': 50,
-            'presunto': 50,
+            'presunto': 3,
             'massa': 50,
             'frango': 50,
         }
+        self.available_dishes = []
 
     def order_counter(self, order):
         frequencia = 0
@@ -54,5 +55,13 @@ class InventoryControl:
     def get_quantities_to_buy(self):
         total_of_orders = self.count_compiler()
         return self.ingredients_per_item(total_of_orders)
-
-        print(total_ingredient_per_item)
+    
+    def get_available_dishes(self, pedido):
+        ingredients = self.ingredients[pedido]
+        is_available = []
+        for ingredient in ingredients:
+            quantity = self.minimum_inventory[ingredient]
+            is_available.append(not quantity > 0)
+        if not any(is_available):
+            return True
+        return False
