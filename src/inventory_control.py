@@ -35,7 +35,15 @@ class InventoryControl:
             buy_list[item] = total
         return buy_list
 
+    def get_available_dishes(self):
+        list_dishes = self.INGREDIENTS.keys()
+        for ingredient, quantity in self.inventory.items():
+            if quantity == 0:
+                list_dishes = [
+                    dish
+                    for dish in list_dishes
+                    if ingredient not in self.INGREDIENTS[dish]
+                ]
 
-def get_available_dishes():
-    # retorno: um conjunto de pratos que ainda têm ingredientes disponíveis
-    pass
+        self.INGREDIENTS = set(list_dishes)
+        return self.INGREDIENTS
