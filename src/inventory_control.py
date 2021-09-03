@@ -16,10 +16,13 @@ class InventoryControl:
     }
 
     def __init__(self):
+        # Este copy 👇 - não sei pra que, mas todo mundo usou. E passou no teste.
         self.inventory = self.MINIMUM_INVENTORY.copy()
 
     def add_new_order(self, costumer, order, day):
         for item in self.INGREDIENTS[order]:
+            if self.inventory[item] < 1:
+                return False
             self.inventory[item] -= 1
 
     def get_quantities_to_buy(self):
@@ -29,3 +32,8 @@ class InventoryControl:
             total = self.MINIMUM_INVENTORY[item] - self.inventory[item]
             buy_list[item] = total
         return buy_list
+
+
+def get_available_dishes():
+    # retorno: um conjunto de pratos que ainda têm ingredientes disponíveis
+    pass
