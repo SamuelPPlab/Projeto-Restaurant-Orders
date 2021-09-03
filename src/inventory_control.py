@@ -16,7 +16,9 @@ class InventoryControl:
     }
 
     def __init__(self):
-        # Este copy 👇 - não sei pra que, mas todo mundo usou. E passou no teste.
+        """Este copy 👇 - não sei pra que.
+        Mas todo mundo usou. E passou no teste.
+        """
         self.inventory = self.MINIMUM_INVENTORY.copy()
 
     def add_new_order(self, costumer, order, day):
