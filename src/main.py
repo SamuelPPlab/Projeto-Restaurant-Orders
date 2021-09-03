@@ -1,8 +1,3 @@
-""" --> principais fontes:
-    https://realpython.com/python-counter/
-    https://realpython.com/python-sets/
-    https://realpython.com/
-"""
 import csv
 from pubsub import pub
 from inventory_control import InventoryControl
@@ -19,7 +14,7 @@ def print_info(tracker, control):
 
 def main():
     topic = "order"
-    path = ""
+    path = "data/orders_1.csv"
 
     tracker = TrackOrders()
     control = InventoryControl()
