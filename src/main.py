@@ -5,16 +5,13 @@ from track_orders import TrackOrders
 
 
 def print_info(tracker, control):
-    print(tracker.get_most_ordered_dish_per_costumer('maria'))
-    print(tracker.get_dish_quantity_per_costumer('arnaldo', 'hamburguer'))
-    print(tracker.get_never_ordered_per_costumer('joao'))
-    print(tracker.get_days_never_visited_per_costumer('joao'))
+    print(control.get_available_dishes())
     print(control.get_quantities_to_buy())
 
 
 def main():
     topic = 'order'
-    path = ""
+    path = "data/orders_2.csv"
 
     tracker = TrackOrders()
     control = InventoryControl()
